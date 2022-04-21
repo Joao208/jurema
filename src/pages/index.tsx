@@ -39,7 +39,7 @@ const Home: NextPage = () => {
   ]
 
   return (
-    <div>
+    <S.Scroll id="scroll-container">
       <Header />
       <S.ImageHeader title="Follow we on LinkedIn.com">
         <S.Title>Não compre, adote.</S.Title>
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
       </S.Wrapper>
 
       <Footer />
-    </div>
+    </S.Scroll>
   )
 }
 

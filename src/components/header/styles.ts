@@ -10,6 +10,8 @@ export const Container = styled.div`
   padding: 0 80px;
   height: 96px;
 
+  background: #fff;
+
   @media (max-width: 800px) {
     height: 98px;
 
@@ -154,21 +156,20 @@ export const HamburgerContainer = styled.div<HamburgerContainerInterface>`
 
 export const Menu = styled.div<MenuInterface>`
   height: 0;
-  min-height: 0;
   width: 100vw;
   transition: 0.8s ease;
 
-  overflow: hidden;
   padding: 0 20px;
 
-  position: absolute;
+  position: fixed;
   background: #fff;
 
-  ${({ opened }) =>
+  overflow-y: scroll;
+
+  ${({ opened, height }) =>
     opened &&
     css`
-      height: 90vh;
-      min-height: 612px;
+      height: ${height}px;
     `}
 
   @media (min-width: 800px) {

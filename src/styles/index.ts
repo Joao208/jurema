@@ -1,6 +1,12 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
 import { WrapperInterface } from './interfaces'
 
+export const Scroll = styled.div`
+  height: 100vh;
+
+  overflow-y: scroll;
+`
+
 export const ImageHeader = styled.div`
   width: 100%;
   height: 537px;
@@ -114,9 +120,11 @@ export const Wrapper = styled.div<WrapperInterface>`
 
   @media (max-width: 900px) {
     flex-direction: column-reverse;
+    height: auto;
 
     > svg {
       width: 100%;
+      height: 335px;
     }
   }
 `
@@ -141,12 +149,16 @@ export const TitleContent = styled.p`
   font-style: normal;
   font-weight: 600;
   font-size: 48px;
-  line-height: 72px;
 
   color: #202020;
 
   @media (max-width: 900px) {
     font-size: 24px;
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    line-height: 72px;
   }
 `
 
@@ -161,6 +173,7 @@ export const DescriptionContent = styled.p`
 
   @media (max-width: 900px) {
     font-size: 14px;
+    text-align: center;
   }
 `
 
@@ -190,7 +203,6 @@ export const ButtonContent = styled.div`
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px 12px;
 
   cursor: pointer;
 
