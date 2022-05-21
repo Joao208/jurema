@@ -7,15 +7,16 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 80px;
   height: 96px;
+
+  border-bottom: 1px solid #999999;
 
   background: #fff;
 
   @media (max-width: 800px) {
     height: 98px;
 
-    padding: 0 25px;
+    border-bottom: 1px solid #999999;
   }
 `
 

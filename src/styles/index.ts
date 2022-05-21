@@ -1,10 +1,20 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
 import { WrapperInterface } from './interfaces'
 
-export const Scroll = styled.div`
+export const Scroll = styled.div.attrs({
+  id: 'scroll-container',
+})`
   height: 100vh;
 
   overflow-y: scroll;
+`
+
+export const HeaderContent = styled.div`
+  padding: 0 117px;
+
+  @media (max-width: 800px) {
+    padding: 0 24px;
+  }
 `
 
 export const ImageHeader = styled.div`
@@ -129,11 +139,30 @@ export const Wrapper = styled.div<WrapperInterface>`
   }
 `
 
-export const Content = styled.div`
+const paddingLeft = css`
+  padding-left: 117px;
+`
+
+const paddingRight = css`
+  padding-right: 117px;
+`
+
+const typesPadding = {
+  normal: paddingLeft,
+  reverse: paddingRight,
+} as { [key: string]: FlattenSimpleInterpolation }
+
+export const Content = styled.div<WrapperInterface>`
+  ${({ type = 'normal' }) => typesPadding[type]}
+
   width: 50%;
-  padding: 30px;
+  padding-top: 30px;
 
   overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   @media (max-width: 900px) {
     width: 100%;
@@ -141,6 +170,8 @@ export const Content = styled.div`
 
     flex-direction: column;
     align-items: center;
+
+    padding: 24px;
   }
 `
 
@@ -152,13 +183,14 @@ export const TitleContent = styled.p`
 
   color: #202020;
 
+  margin: 24px 0;
+
   @media (max-width: 900px) {
     font-size: 24px;
     margin: 0;
-  }
 
-  @media (min-width: 900px) {
-    line-height: 72px;
+    line-height: auto;
+    margin-bottom: 8px;
   }
 `
 
@@ -171,9 +203,14 @@ export const DescriptionContent = styled.p`
 
   color: #3a3a3a;
 
+  margin-bottom: 32px;
+  margin-top: 0;
+
   @media (max-width: 900px) {
     font-size: 14px;
     text-align: center;
+
+    margin-bottom: 16px;
   }
 `
 
@@ -220,6 +257,8 @@ export const ButtonContent = styled.div`
   @media (max-width: 900px) {
     width: 189px;
     height: 43px;
+
+    font-size: 15px;
   }
 `
 

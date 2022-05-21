@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Logo } from 'public/logo'
 import { useCallback, useEffect, useState } from 'react'
 import * as S from './styles'
@@ -33,14 +34,24 @@ export const Header = () => {
   return (
     <>
       <S.Container>
-        <S.LogoContainer>
-          <Logo />
-        </S.LogoContainer>
+        <Link href="/" passHref>
+          <S.LogoContainer>
+            <Logo />
+          </S.LogoContainer>
+        </Link>
         <S.LeftContainer>
-          <S.Text>Adote</S.Text>
-          <S.Text>Adote</S.Text>
-          <S.Text>Adote</S.Text>
-          <S.Button>Contribua</S.Button>
+          <Link href="/animals" passHref>
+            <S.Text>Adote</S.Text>
+          </Link>
+          <Link href="/donate" passHref>
+            <S.Text>Doe</S.Text>
+          </Link>
+          <Link href="/#denounce" passHref>
+            <S.Text>Denuncie</S.Text>
+          </Link>
+          <Link href="/donate" passHref>
+            <S.Button>Contribua</S.Button>
+          </Link>
         </S.LeftContainer>
         <S.HamburgerContainer onClick={openOrClose} opened={opened}>
           <span />
@@ -48,6 +59,7 @@ export const Header = () => {
           <span />
         </S.HamburgerContainer>
       </S.Container>
+
       <S.Menu height={dimensions[1] - 96} opened={opened}>
         <S.TitleMenu>Navegue pelo site</S.TitleMenu>
         <S.Option>Adote</S.Option>
@@ -57,8 +69,8 @@ export const Header = () => {
         <S.Option>Contribua</S.Option>
 
         <S.TitleMenu>Contato</S.TitleMenu>
-        <S.Option>E-mail: email@exemplo.com</S.Option>
-        <S.Option>Telefone: +55 (19) 99123-XXXX</S.Option>
+        <S.Option>E-mail: hnp.pozer@gmail.com</S.Option>
+        <S.Option>Telefone: +55 19 98921-9327</S.Option>
 
         <S.TitleMenu>Nossas redes sociais</S.TitleMenu>
         <S.Option>Facebook</S.Option>

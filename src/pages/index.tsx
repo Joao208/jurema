@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { DonateImage } from 'public/donate'
 import { GiftImage } from 'public/gift'
 import { ONGImage } from 'public/ong'
@@ -39,20 +40,24 @@ const Home: NextPage = () => {
   ]
 
   return (
-    <S.Scroll id="scroll-container">
-      <Header />
+    <S.Scroll>
+      <S.HeaderContent>
+        <Header />
+      </S.HeaderContent>
       <S.ImageHeader title="Follow we on LinkedIn.com">
         <S.Title>Não compre, adote.</S.Title>
         <S.Description>
           Encontre seu novo amigo e torne o mundo um lugar um pouco mais
           aconchegante.
         </S.Description>
-        <S.Button>Ver animais</S.Button>
+        <Link href="/animals" passHref>
+          <S.Button>Ver animais</S.Button>
+        </Link>
       </S.ImageHeader>
 
       {cards.map((card) => (
         <S.Wrapper type={card.type} key={card.title}>
-          <S.Content>
+          <S.Content type={card.type}>
             <S.TitleContent>{card.title}</S.TitleContent>
             <S.DescriptionContent>{card.description}</S.DescriptionContent>
             <S.ButtonContent>{card.buttonContent}</S.ButtonContent>
@@ -62,7 +67,7 @@ const Home: NextPage = () => {
       ))}
 
       <S.Wrapper height="587.03px" type="reverse">
-        <S.Content>
+        <S.Content type="reverse">
           <S.TitleContent>Saiba como denunciar</S.TitleContent>
           <S.DescriptionContent>
             Você pode denunciar casos de animais sendo abandonados, agredidos,
