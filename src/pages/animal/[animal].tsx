@@ -29,10 +29,10 @@ const Animal: React.FC<AnimalInterface> = ({ animal }) => {
     <Scroll>
       <Container>
         <Header />
-        <Navigation paths={['Adote um amigo', animal.name]} />
+        <Navigation paths={['Adote um amigo', animal?.name]} />
         <S.FlexWrapper>
           <S.LeftContainer>
-            <S.Title>{animal.name}</S.Title>
+            <S.Title>{animal?.name}</S.Title>
             <S.SubTitle>Como ele é?</S.SubTitle>
             <S.Description>
               Ele é um garoto muito dócil e curioso, então se você gostou dele,
@@ -75,7 +75,7 @@ const Animal: React.FC<AnimalInterface> = ({ animal }) => {
                 <p>Curioso</p>
               </Detail>
             </S.DetailsContainer>
-            <Link href={`/animal/adopt/${animal.id}`} passHref>
+            <Link href={`/animal/adopt/${animal?.id}`} passHref>
               <S.Button>Quero adotar ele(a)</S.Button>
             </Link>
           </S.LeftContainer>

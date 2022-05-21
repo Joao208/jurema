@@ -26,13 +26,14 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
     <Scroll>
       <Container>
         <Header />
-        <Navigation paths={['Adote um amigo', animal.name, 'Quero adotar']} />
-        <S.Title>Adotar {animal.name}</S.Title>
+        <Navigation paths={['Adote um amigo', animal?.name, 'Quero adotar']} />
+        <S.Title>Adotar {animal?.name}</S.Title>
         <S.Description style={{ maxWidth: 603 }}>
           Para adotar o(a) Stallone, preencha os campos abaixo e logo entraremos
           em contato com você para prosseguir com o processo de adoção
         </S.Description>
         <Input
+          mask=""
           placeholder="João Silva"
           value={name}
           setValue={setName}

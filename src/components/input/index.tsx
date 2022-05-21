@@ -5,7 +5,7 @@ interface InputProps {
   label: string
   placeholder?: string
   value: string
-  mask?: string
+  mask: string
   setValue: (param: string) => any
 }
 
@@ -14,7 +14,7 @@ export const Input: React.FC<InputProps> = ({
   placeholder = 'Placeholder',
   value,
   setValue,
-  mask,
+  mask = '',
 }) => {
   const [focus, setFocus] = useState(false)
 
