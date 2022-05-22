@@ -4,6 +4,7 @@ import { DonateImage } from 'public/donate'
 import { GiftImage } from 'public/gift'
 import { ONGImage } from 'public/ong'
 import { PoliceImage } from 'public/police'
+import { Button } from 'src/components/button'
 import { Footer } from 'src/components/footer'
 import { Header } from 'src/components/header'
 import * as S from '../styles'
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
         'Para ajudar o projeto a se manter, você pode fazer doações facilmente através de PIX.',
       type: 'reverse',
       buttonContent: 'Doar',
-      buttonHref: '/',
+      buttonHref: '/donate',
       image: <DonateImage />,
     },
     {
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
         'Você pode mudar a vida de um de nossos animais. Há vários deles esperando para fazer parte de uma família.',
       type: 'normal',
       buttonContent: 'Ver animais',
-      buttonHref: '/',
+      buttonHref: '/animals',
       image: <ONGImage />,
     },
   ]
@@ -60,7 +61,12 @@ const Home: NextPage = () => {
           <S.Content type={card.type}>
             <S.TitleContent>{card.title}</S.TitleContent>
             <S.DescriptionContent>{card.description}</S.DescriptionContent>
-            <S.ButtonContent>{card.buttonContent}</S.ButtonContent>
+            <Button
+              buttonText={card.buttonContent}
+              mobileWidth="189px"
+              width="245px"
+              href={card.buttonHref}
+            />
           </S.Content>
           {card.image}
         </S.Wrapper>

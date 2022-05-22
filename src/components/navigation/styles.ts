@@ -19,7 +19,12 @@ export const Container = styled.div`
     height: 20px;
   }
 
+  p[class='redirect'] {
+    cursor: pointer;
+  }
+
   svg {
+    cursor: pointer;
     height: 20px;
   }
 `

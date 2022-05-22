@@ -1,5 +1,5 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import { Logo } from 'public/logo'
 import { useCallback, useEffect, useState } from 'react'
 import * as S from './styles'
 
@@ -36,7 +36,12 @@ export const Header = () => {
       <S.Container>
         <Link href="/" passHref>
           <S.LogoContainer>
-            <Logo />
+            <Image
+              src="/logo.png"
+              alt="Jurema Logo"
+              width="47px"
+              height="38px"
+            />
           </S.LogoContainer>
         </Link>
         <S.LeftContainer>
@@ -62,11 +67,18 @@ export const Header = () => {
 
       <S.Menu height={dimensions[1] - 96} opened={opened}>
         <S.TitleMenu>Navegue pelo site</S.TitleMenu>
-        <S.Option>Adote</S.Option>
-        <S.Option>Doe</S.Option>
-        <S.Option>Denuncie</S.Option>
-        <S.Option>Adote</S.Option>
-        <S.Option>Contribua</S.Option>
+        <Link href="/animals" passHref>
+          <S.Option>Adote</S.Option>
+        </Link>
+        <Link href="/donate" passHref>
+          <S.Option>Doe</S.Option>
+        </Link>
+        <Link href="/#denounce" passHref>
+          <S.Option>Denuncie</S.Option>
+        </Link>
+        <Link href="/donate" passHref>
+          <S.Option>Contribua</S.Option>
+        </Link>
 
         <S.TitleMenu>Contato</S.TitleMenu>
         <S.Option>E-mail: hnp.pozer@gmail.com</S.Option>

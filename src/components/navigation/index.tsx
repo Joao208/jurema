@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ArrowLeftIcon } from 'public/navigationIcons/arrowLeft'
 import { HomeIcon } from 'public/navigationIcons/home'
 import React from 'react'
@@ -10,11 +11,21 @@ interface NavigationProps {
 export const Navigation: React.FC<NavigationProps> = ({ paths }) => {
   return (
     <S.Container>
-      <HomeIcon />
-      {paths.map((path) => (
+      <Link href="/" passHref>
+        <div>
+          <HomeIcon />
+        </div>
+      </Link>
+      {paths.map((path, index) => (
         <>
           <ArrowLeftIcon />
-          <p>{path}</p>
+          {index === paths.length - 1 ? (
+            <p>{path}</p>
+          ) : (
+            <Link href="/" passHref>
+              <p className="redirect">{path}</p>
+            </Link>
+          )}
         </>
       ))}
     </S.Container>

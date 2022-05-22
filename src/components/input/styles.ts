@@ -1,8 +1,27 @@
 import styled, { css } from 'styled-components'
-import { LabelInterface } from './interface'
+import { InputInterface, LabelInterface } from './interface'
 import InputMask from 'react-input-mask'
 
-export const Container = styled.div``
+export const Container = styled.div`
+  .error {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 120%;
+
+    color: #de0000;
+
+    margin: 0;
+    margin-top: 4px;
+
+    @media (max-width: 900px) {
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+`
 
 export const Label = styled.p<LabelInterface>`
   font-family: 'Poppins', sans-serif;
@@ -27,8 +46,11 @@ export const Label = styled.p<LabelInterface>`
     `}
 `
 
-export const Input = styled(InputMask)`
-  border: 1px solid #999999;
+export const Input = styled(InputMask)<InputInterface>`
+  ${({ error }) => css`
+    border: 1px solid ${error ? '#DE0000' : '#999999'};
+  `}
+
   border-radius: 10px;
 
   height: 61px;

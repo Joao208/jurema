@@ -166,6 +166,7 @@ export const Menu = styled.div<MenuInterface>`
   background: #fff;
 
   overflow-y: scroll;
+  z-index: 10;
 
   ${({ opened, height }) =>
     opened &&

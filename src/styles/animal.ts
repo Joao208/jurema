@@ -80,39 +80,6 @@ export const DetailsContainer = styled.div`
   gap: 20px;
 `
 
-export const Button = styled.div`
-  background: #9100a9;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 341px;
-  height: 71px;
-
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 36px;
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-
-  color: #ffffff;
-
-  cursor: pointer;
-
-  @media (max-width: 900px) {
-    width: 250px;
-    height: 43px;
-
-    font-size: 15px;
-  }
-`
-
 export const ImageContainer = styled.div`
   position: relative;
 

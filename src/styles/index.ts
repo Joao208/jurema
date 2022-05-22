@@ -1,5 +1,5 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
-import { WrapperInterface } from './interfaces'
+import { HeaderContentInterface, WrapperInterface } from './interfaces'
 
 export const Scroll = styled.div.attrs({
   id: 'scroll-container',
@@ -9,8 +9,14 @@ export const Scroll = styled.div.attrs({
   overflow-y: scroll;
 `
 
-export const HeaderContent = styled.div`
+export const HeaderContent = styled.div<HeaderContentInterface>`
   padding: 0 117px;
+
+  ${({ margin }) =>
+    margin &&
+    css`
+      margin-bottom: 25px;
+    `}
 
   @media (max-width: 800px) {
     padding: 0 24px;
@@ -211,54 +217,6 @@ export const DescriptionContent = styled.p`
     text-align: center;
 
     margin-bottom: 16px;
-  }
-`
-
-export const ButtonContent = styled.div`
-  width: 245px;
-  height: 71px;
-
-  background: #9100a9;
-  border-radius: 10px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 36px;
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-
-  color: #ffffff;
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-
-  cursor: pointer;
-
-  transition: background 0.2s ease;
-
-  :hover {
-    background: #590067;
-  }
-
-  :active {
-    outline: 4px solid rgba(89, 0, 103, 0.5);
-    background: #590067;
-  }
-
-  @media (max-width: 900px) {
-    width: 189px;
-    height: 43px;
-
-    font-size: 15px;
   }
 `
 
