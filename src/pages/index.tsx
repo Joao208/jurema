@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   return (
     <S.Scroll>
       <S.HeaderContent>
-        <Header />
+        <Header showBorder={false} />
       </S.HeaderContent>
       <S.ImageHeader title="Follow we on LinkedIn.com">
         <S.Title>Não compre, adote.</S.Title>

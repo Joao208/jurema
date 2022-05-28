@@ -5,6 +5,7 @@ import * as S from 'src/styles/animal'
 import { Input } from 'src/components/input'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
+import { CheckBox } from 'src/components/checkbox'
 
 interface Animal {
   id: string
@@ -21,6 +22,7 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [isValidName, setIsValidName] = useState(true)
+  const [checked, setChecked] = useState(false)
 
   useEffect(() => {
     const [firstName, lastName = ''] = name.split(' ')
@@ -34,9 +36,17 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
 
   const handleSubmit = useCallback(() => {}, [])
 
+  const handleCheck = useCallback((e: boolean) => {
+    setChecked(e)
+  }, [])
+
   return (
     <Template
-      paths={['Adote um amigo', animal?.name, 'Quero adotar']}
+      paths={[
+        { path: '/animals', label: 'Adote um amigo' },
+        { path: `/animal/${animal?.id}`, label: animal?.name },
+        { path: '', label: 'Quero adotar' },
+      ]}
       title={`Adotar ${animal?.name}`}
     >
       <S.Description style={{ maxWidth: 603 }}>
@@ -58,9 +68,10 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
         setValue={setPhone}
         label="Qual seu número de telefone?"
       />
+      <CheckBox onChange={handleCheck} checked={checked} />
       <Button
         mobileWidth="175px"
-        onClick={() => {}}
+        onClick={handleSubmit}
         width="222px"
         buttonText="Confirmar"
       />

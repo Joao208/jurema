@@ -3,7 +3,11 @@ import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import * as S from './styles'
 
-export const Header = () => {
+interface HeaderProps {
+  showBorder?: boolean
+}
+
+export const Header: React.FC<HeaderProps> = ({ showBorder = true }) => {
   const [opened, setOpened] = useState(false)
   const [dimensions, setDimensions] = useState([0, 0])
 
@@ -33,7 +37,7 @@ export const Header = () => {
 
   return (
     <>
-      <S.Container>
+      <S.Container showBorder={showBorder}>
         <Link href="/" passHref>
           <S.LogoContainer>
             <Image

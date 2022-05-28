@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components'
-import { HamburgerContainerInterface, MenuInterface } from './interface'
+import {
+  ContainerInterface,
+  HamburgerContainerInterface,
+  MenuInterface,
+} from './interface'
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerInterface>`
   display: flex;
 
   align-items: center;
@@ -9,14 +13,16 @@ export const Container = styled.div`
 
   height: 96px;
 
-  border-bottom: 1px solid #999999;
+  ${({ showBorder }) =>
+    showBorder &&
+    css`
+      border-bottom: 1px solid #999999;
+    `}
 
   background: #fff;
 
   @media (max-width: 800px) {
     height: 98px;
-
-    border-bottom: 1px solid #999999;
   }
 `
 

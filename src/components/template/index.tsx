@@ -2,11 +2,11 @@ import { HeaderContent, Scroll } from 'src/styles'
 import { Container, Title } from 'src/styles/animals'
 import { Footer } from '../footer'
 import { Header } from '../header'
-import { Navigation } from '../navigation'
+import { Navigation, Path } from '../navigation'
 
 interface TemplateProps {
   children: any
-  paths?: string[]
+  paths?: Path[]
   showNavigation?: boolean
   title?: string
 }

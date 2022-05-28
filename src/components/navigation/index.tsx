@@ -4,8 +4,13 @@ import { HomeIcon } from 'public/navigationIcons/home'
 import React from 'react'
 import * as S from './styles'
 
+export interface Path {
+  path: string
+  label: string
+}
+
 interface NavigationProps {
-  paths: string[]
+  paths: Path[]
 }
 
 export const Navigation: React.FC<NavigationProps> = ({ paths }) => {
@@ -16,14 +21,14 @@ export const Navigation: React.FC<NavigationProps> = ({ paths }) => {
           <HomeIcon />
         </div>
       </Link>
-      {paths.map((path, index) => (
+      {paths.map(({ path, label }, index) => (
         <>
           <ArrowLeftIcon />
           {index === paths.length - 1 ? (
-            <p>{path}</p>
+            <p>{label}</p>
           ) : (
-            <Link href="/" passHref>
-              <p className="redirect">{path}</p>
+            <Link href={path} passHref>
+              <p className="redirect">{label}</p>
             </Link>
           )}
         </>

@@ -23,7 +23,12 @@ interface AnimalInterface {
 
 const Animal: React.FC<AnimalInterface> = ({ animal }) => {
   return (
-    <Template paths={['Adote um amigo', animal?.name]}>
+    <Template
+      paths={[
+        { path: '/animals', label: 'Adote um amigo' },
+        { path: `/animal/${animal?.id}`, label: animal?.name },
+      ]}
+    >
       <S.FlexWrapper>
         <S.LeftContainer>
           <S.Title>{animal?.name}</S.Title>

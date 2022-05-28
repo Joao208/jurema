@@ -13,7 +13,10 @@ const Animals: NextPage = () => {
   const animals = new Array(5).fill({})
 
   return (
-    <Template paths={['Adote um amigo']} title="Adote um amigo">
+    <Template
+      paths={[{ path: '/animals', label: 'Adote um amigo' }]}
+      title="Adote um amigo"
+    >
       <S.FlexWrapper>
         {animals.map((animal, index) => (
           <Link key={index} href={`/animal/10`} passHref>
