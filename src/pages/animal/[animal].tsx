@@ -11,6 +11,7 @@ import { SearchIcon } from 'public/detailsIcons/search'
 import { BackgroundImage } from 'public/background'
 import { Template } from 'src/components/template'
 import { Button } from 'src/components/button'
+import { useState } from 'react'
 
 interface Animal {
   id: string
@@ -22,6 +23,8 @@ interface AnimalInterface {
 }
 
 const Animal: React.FC<AnimalInterface> = ({ animal }) => {
+  const [alreadyAdopted, setAlreadyAdopted] = useState(false)
+
   return (
     <Template
       paths={[
@@ -39,45 +42,50 @@ const Animal: React.FC<AnimalInterface> = ({ animal }) => {
           </S.Description>
           <S.SubTitle>Quais suas características?</S.SubTitle>
           <S.DetailsContainer>
-            <Detail>
-              <InterrogationIcon />
-              <p>Cachorro</p>
-            </Detail>
+            <div className="left">
+              <Detail>
+                <InterrogationIcon />
+                <p>Cachorro</p>
+              </Detail>
+              <Detail>
+                <BreeIcon />
+                <p>Pit Bull</p>
+              </Detail>
+              <Detail>
+                <SizeIcon />
+                <p>Grande porte</p>
+              </Detail>
+              <Detail>
+                <GenderIcon />
+                <p>Macho</p>
+              </Detail>
+            </div>
 
-            <Detail>
-              <BreeIcon />
-              <p>Pit Bull</p>
-            </Detail>
+            <div className="right">
+              <Detail>
+                <VaccinesIcon />
+                <p>Vacinado</p>
+              </Detail>
 
-            <Detail>
-              <SizeIcon />
-              <p>Grande porte</p>
-            </Detail>
+              <Detail>
+                <PlusIcon />
+                <p>Castrado</p>
+              </Detail>
 
-            <Detail>
-              <GenderIcon />
-              <p>Macho</p>
-            </Detail>
-
-            <Detail>
-              <VaccinesIcon />
-              <p>Vacinado</p>
-            </Detail>
-
-            <Detail>
-              <PlusIcon />
-              <p>Castrado</p>
-            </Detail>
-
-            <Detail>
-              <SearchIcon />
-              <p>Curioso</p>
-            </Detail>
+              <Detail>
+                <SearchIcon />
+                <p>Curioso</p>
+              </Detail>
+            </div>
           </S.DetailsContainer>
-          <Button
-            buttonText="Quero adotar ele(a)"
-            href={`/animal/adopt/${animal?.id}`}
-          />
+          {alreadyAdopted ? (
+            <></>
+          ) : (
+            <Button
+              buttonText="Quero adotar ele(a)"
+              href={`/animal/adopt/${animal?.id}`}
+            />
+          )}
         </S.LeftContainer>
         <S.ImageContainer>
           <S.Image src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" />

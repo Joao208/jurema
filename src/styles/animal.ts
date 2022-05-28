@@ -88,6 +88,30 @@ export const ImageContainer = styled.div`
   @media (max-width: 900px) {
     width: 100%;
   }
+
+  @media (max-width: 1250px) {
+    > img {
+      width: 350px;
+      height: 350px;
+    }
+
+    svg {
+      width: 350px;
+      height: 350px;
+    }
+  }
+
+  @media (max-width: 1020px) {
+    > img {
+      width: 250px;
+      height: 250px;
+    }
+
+    svg {
+      width: 250px;
+      height: 250px;
+    }
+  }
 `
 
 export const Image = styled.img`
