@@ -6,23 +6,20 @@ import { Input } from 'src/components/input'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
 import { CheckBox } from 'src/components/checkbox'
-
-interface Animal {
-  id: string
-  name: string
-}
+import { getAnimals, sendAdoption } from 'src/services/api'
+import { Animal } from 'src/pages/animals'
 
 interface AnimalInterface {
   animal: Animal
 }
 
-//TODO tamanho 1155px da erro
-
 const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [isValidName, setIsValidName] = useState(true)
+  const [isValidPhone, setIsValidPhone] = useState(true)
   const [checked, setChecked] = useState(false)
+  const [errorCheckbox, setErrorCheckbox] = useState(false)
 
   useEffect(() => {
     const [firstName, lastName = ''] = name.split(' ')
@@ -31,10 +28,22 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
       return setIsValidName(!name)
     }
 
+    if (phone.length < 4) {
+      return setIsValidPhone(!phone)
+    }
+
     setIsValidName(true)
   }, [name, phone])
 
-  const handleSubmit = useCallback(() => {}, [])
+  const handleSubmit = useCallback(async () => {
+    if (!isValidName || !isValidPhone) return
+
+    if (!checked) return setErrorCheckbox(true)
+
+    await sendAdoption({ name, phone, animalLink: animal?.animalLink })
+
+    window.location.href = `/animal/adopt/success/${animal?.id}`
+  }, [isValidName, isValidPhone, name, phone, animal, checked])
 
   const handleCheck = useCallback((e: boolean) => {
     setChecked(e)
@@ -50,8 +59,8 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
       title={`Adotar ${animal?.name}`}
     >
       <S.Description style={{ maxWidth: 603 }}>
-        Para adotar o(a) Stallone, preencha os campos abaixo e logo entraremos
-        em contato com você para prosseguir com o processo de adoção
+        Para adotar o(a) {animal?.name}, preencha os campos abaixo e logo
+        entraremos em contato com você para prosseguir com o processo de adoção
       </S.Description>
       <Input
         error={!isValidName && 'Nome é obrigatório'}
@@ -62,13 +71,20 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
         label="Qual seu nome?"
       />
       <Input
-        mask="(99) 99999-999"
+        mask="(99) 99999-9999"
         placeholder="(00) 00000-0000"
         value={phone}
         setValue={setPhone}
         label="Qual seu número de telefone?"
       />
-      <CheckBox onChange={handleCheck} checked={checked} />
+      <CheckBox
+        onChange={handleCheck}
+        checked={checked}
+        error={
+          errorCheckbox &&
+          'Você precisa aceitar receber mensagens pelo WhatsApp'
+        }
+      />
       <Button
         mobileWidth="175px"
         onClick={handleSubmit}
@@ -82,10 +98,10 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
 export default Adopt
 
 export async function getStaticPaths() {
-  const posts = [{ id: '10', name: 'Stallone' }]
+  const { data: animalsResponse } = await getAnimals()
 
-  const paths = posts.map((animal: Animal) => ({
-    params: { animal: animal.id },
+  const paths = animalsResponse.map((animal: Animal) => ({
+    params: { animal: animal.id.toString() },
   }))
 
   return {
@@ -97,7 +113,11 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const animalId = params?.animal
 
-  const animal = { id: '10', name: 'Stallone' }
+  const { data: animalsResponse } = await getAnimals()
+
+  const animal = animalsResponse?.find?.(
+    (animal: Animal) => animal.id.toString() === animalId
+  )
 
   return {
     props: {

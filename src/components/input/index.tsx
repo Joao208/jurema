@@ -5,9 +5,10 @@ interface InputProps {
   label: string
   placeholder?: string
   value: string
-  mask: string
+  mask?: string
   setValue: (param: string) => any
   error?: string | false
+  type?: string
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -17,6 +18,7 @@ export const Input: React.FC<InputProps> = ({
   setValue,
   mask = '',
   error = '',
+  type,
 }) => {
   const [focus, setFocus] = useState(false)
 
@@ -24,6 +26,7 @@ export const Input: React.FC<InputProps> = ({
     <S.Container>
       <S.Label focus={focus}>{label}</S.Label>
       <S.Input
+        type={type}
         error={!!error}
         mask={mask}
         onBlur={() => setFocus(false)}

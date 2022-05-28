@@ -146,3 +146,31 @@ export const Background = styled.div`
     display: none;
   }
 `
+
+export const FlexWrapperSuccess = styled.div`
+  display: flex;
+  width: 100%;
+
+  justify-content: space-between;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column-reverse;
+
+    > div {
+      margin-top: 25px;
+    }
+
+    .icon {
+      svg {
+        width: 327px;
+        height: 226.58px;
+      }
+    }
+  }
+`

@@ -2,7 +2,7 @@ import { GetStaticPropsContext } from 'next'
 import { Detail } from 'src/styles/animals'
 import * as S from 'src/styles/animal'
 import { InterrogationIcon } from 'public/detailsIcons/interrogation'
-import { BreeIcon } from 'public/detailsIcons/breed'
+import { BreedIcon } from 'public/detailsIcons/breed'
 import { SizeIcon } from 'public/detailsIcons/size'
 import { GenderIcon } from 'public/detailsIcons/gender'
 import { VaccinesIcon } from 'public/detailsIcons/vaccines'
@@ -11,19 +11,25 @@ import { SearchIcon } from 'public/detailsIcons/search'
 import { BackgroundImage } from 'public/background'
 import { Template } from 'src/components/template'
 import { Button } from 'src/components/button'
-import { useState } from 'react'
-
-interface Animal {
-  id: string
-  name: string
-}
+import { useEffect, useState } from 'react'
+import { getAnimals } from 'src/services/api'
+import { Animal } from '../animals'
 
 interface AnimalInterface {
   animal: Animal
 }
 
-const Animal: React.FC<AnimalInterface> = ({ animal }) => {
+const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   const [alreadyAdopted, setAlreadyAdopted] = useState(false)
+
+  useEffect(() => {
+    const animalInLocalStorage =
+      localStorage.getItem(animal.id.toString()) || ''
+
+    if (animalInLocalStorage === 'alreadyAdopted') {
+      setAlreadyAdopted(true)
+    }
+  }, [animal])
 
   return (
     <Template
@@ -45,19 +51,19 @@ const Animal: React.FC<AnimalInterface> = ({ animal }) => {
             <div className="left">
               <Detail>
                 <InterrogationIcon />
-                <p>Cachorro</p>
+                <p>{animal?.species}</p>
               </Detail>
               <Detail>
-                <BreeIcon />
-                <p>Pit Bull</p>
+                <BreedIcon />
+                <p>{animal?.breed}</p>
               </Detail>
               <Detail>
                 <SizeIcon />
-                <p>Grande porte</p>
+                <p>{animal?.size}</p>
               </Detail>
               <Detail>
                 <GenderIcon />
-                <p>Macho</p>
+                <p>{animal?.sex}</p>
               </Detail>
             </div>
 
@@ -69,17 +75,25 @@ const Animal: React.FC<AnimalInterface> = ({ animal }) => {
 
               <Detail>
                 <PlusIcon />
-                <p>Castrado</p>
+                <p>
+                  {animal?.is_castrated === 'Sim' ? 'Castrado' : 'Não castrado'}
+                </p>
               </Detail>
 
               <Detail>
                 <SearchIcon />
-                <p>Curioso</p>
+                <p>{animal?.personality}</p>
               </Detail>
             </div>
           </S.DetailsContainer>
           {alreadyAdopted ? (
-            <></>
+            <>
+              <S.SubTitle>Pedido de adoção enviado</S.SubTitle>
+              <S.Description>
+                Seu pedido de adoção foi enviado, agora é só aguardar que daqui
+                a pouco a gente entra em contato com você!
+              </S.Description>
+            </>
           ) : (
             <Button
               buttonText="Quero adotar ele(a)"
@@ -88,7 +102,7 @@ const Animal: React.FC<AnimalInterface> = ({ animal }) => {
           )}
         </S.LeftContainer>
         <S.ImageContainer>
-          <S.Image src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" />
+          <S.Image src={animal?.photo} />
           <S.Background>
             <BackgroundImage />
           </S.Background>
@@ -98,13 +112,13 @@ const Animal: React.FC<AnimalInterface> = ({ animal }) => {
   )
 }
 
-export default Animal
+export default AnimalPage
 
 export async function getStaticPaths() {
-  const posts = [{ id: '10', name: 'Stallone' }]
+  const { data: animalsResponse } = await getAnimals()
 
-  const paths = posts.map((animal: Animal) => ({
-    params: { animal: animal.id },
+  const paths = animalsResponse.map((animal: Animal) => ({
+    params: { animal: animal.id.toString() },
   }))
 
   return {
@@ -116,7 +130,11 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const animalId = params?.animal
 
-  const animal = { id: '10', name: 'Stallone' }
+  const { data: animalsResponse } = await getAnimals()
+
+  const animal = animalsResponse?.find?.(
+    (animal: Animal) => animal.id.toString() === animalId
+  )
 
   return {
     props: {

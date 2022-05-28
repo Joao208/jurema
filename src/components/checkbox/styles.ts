@@ -65,4 +65,14 @@ export const ContainerCheckBox = styled.div`
   .container input:checked ~ .checkMark:after {
     display: block;
   }
+
+  .error {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 120%;
+
+    color: #de0000;
+  }
 `

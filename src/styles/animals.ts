@@ -19,7 +19,6 @@ export const Title = styled.p`
   font-style: normal;
   font-weight: 600;
   font-size: 48px;
-  line-height: 72px;
 
   display: flex;
   align-items: center;
@@ -77,6 +76,8 @@ export const CardTitle = styled.p`
   color: #202020;
   margin: 8px 16px;
 
+  text-transform: capitalize;
+
   @media (max-width: 900px) {
     font-size: 18px;
   }
@@ -93,6 +94,7 @@ export const Detail = styled.div`
   align-items: center;
 
   margin-bottom: 10px;
+  text-transform: capitalize;
 
   svg {
     width: 24px;
