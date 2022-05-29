@@ -84,8 +84,9 @@ const QR: React.FC = () => {
           <Title className="hideOnMobile">Aguardando doação</Title>
 
           <Description style={{ maxWidth: 603 }}>
-            Aponte sua câmera para o QR code abaixo para efetuar a doação. Ao
-            completar, clique no botão abaixo.
+            {isMobile
+              ? 'Copie o código PIX abaixo e insira no seu aplicativo de pagamentos. Após concluir, clique em “Concluir doação”.'
+              : 'Abra seu aplicativo de pagamentos e leia o código PIX ao lado para efetuar a doação. Ao completar, clique no botão abaixo.'}
           </Description>
 
           <S.CopyContainer onClick={handleCopy}>
