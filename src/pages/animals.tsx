@@ -48,6 +48,7 @@ export interface Animal {
   is_castrated: string
   personality: string
   animalLink: string
+  description?: string
 }
 
 const Animals: NextPage = () => {

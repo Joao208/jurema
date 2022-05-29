@@ -44,8 +44,7 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
           <S.Title>{animal?.name}</S.Title>
           <S.SubTitle>Como ele é?</S.SubTitle>
           <S.Description>
-            Ele é um garoto muito dócil e curioso, então se você gostou dele,
-            esteja preparado para muita atividade.
+            {animal?.description}
           </S.Description>
           <S.SubTitle>Quais suas características?</S.SubTitle>
           <S.DetailsContainer>
