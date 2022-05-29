@@ -46,6 +46,10 @@ const AnimalComponente = ({
           onError={handleErrorImage}
           placeholder="blur"
           src={image}
+          width="100%"
+          height="100%"
+          layout="responsive"
+          blurDataURL={image}
         />
         <S.CardTitle>{animal.name}</S.CardTitle>
 

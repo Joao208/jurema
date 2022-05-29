@@ -1,0 +1,15 @@
+# Block all crawlers for /accounts
+User-agent: *
+Disallow: /donate
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Allow all crawlers
+User-agent: *
+Allow: /animals
+
+# Allow all crawlers
+User-agent: *
+Allow: /animal/*

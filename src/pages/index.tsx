@@ -45,6 +45,18 @@ const Home: NextPage = () => {
         <Header showBorder={false} />
       </S.HeaderContent>
       <S.ImageHeader title="Follow we on LinkedIn.com">
+        <S.FilterImage />
+
+        <S.CustomImage
+          src="/header.png"
+          quality="100"
+          placeholder="blur"
+          priority
+          layout="fill"
+          objectFit="cover"
+          blurDataURL="/header.png"
+        />
+
         <S.Title>Não compre, adote.</S.Title>
         <S.Description>
           Encontre seu novo amigo e torne o mundo um lugar um pouco mais

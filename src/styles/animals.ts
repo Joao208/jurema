@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -97,7 +98,7 @@ export const CardTitle = styled.p`
   }
 `
 
-export const CardImage = styled.img`
+export const CardImage = styled(Image)`
   height: 68%;
   width: 100%;
   object-fit: cover;

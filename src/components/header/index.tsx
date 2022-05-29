@@ -45,6 +45,9 @@ export const Header: React.FC<HeaderProps> = ({ showBorder = true }) => {
               alt="Jurema Logo"
               width="47px"
               height="38px"
+              placeholder="blur"
+              blurDataURL="/logo.png"
+              priority
             />
           </S.LogoContainer>
         </Link>

@@ -44,6 +44,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="icon" href="logo.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
@@ -59,14 +60,26 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+          />
+          <meta
             name="theme-color"
             content="#000"
             media="(prefers-color-scheme: dark)"
           />
+          <meta
+            name="description"
+            content="Checkout our cool page"
+            key="desc"
+          />
+          <meta
+            property="og:description"
+            content="And a social description for our cool page"
+          />
           <link rel="manifest" href="" />
-
-          <meta name="keywords" content="" />
-          <meta name="author" content="" />
+          <meta name="keywords" content="projeto, animal, ajuda, jurema" />
+          <meta name="author" content="joao208 and coutinhomm" />
         </Head>
         <Main />
         <NextScript />

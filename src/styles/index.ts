@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
 import { HeaderContentInterface, WrapperInterface } from './interfaces'
 
@@ -30,23 +31,43 @@ export const ImageHeader = styled.div`
   width: 100%;
   height: 537px;
 
-  background: linear-gradient(
-      0deg,
-      rgba(76, 0, 103, 0.6),
-      rgba(76, 0, 103, 0.6)
-    ),
-    url('/header.png');
-
   @media (max-width: 800px) {
     display: none;
   }
 
-  background-size: cover;
+  position: relative;
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  p {
+    z-index: 999;
+  }
+
+  div {
+    z-index: 999;
+  }
+`
+
+export const CustomImage = styled(Image)`
+  position: absolute;
+`
+
+export const FilterImage = styled.div`
+  background: linear-gradient(
+    0deg,
+    rgba(76, 0, 103, 0.6),
+    rgba(76, 0, 103, 0.6)
+  );
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 998 !important;
 `
 
 export const Title = styled.p`

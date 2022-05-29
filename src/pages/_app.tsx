@@ -24,19 +24,9 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const style = `
-    font-size:400px;
-    background:url(https://cdn-icons-png.flaticon.com/512/174/174857.png) no-repeat;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    background-size: 200px
-  `
-
   console.log(
     'Powered by João Augusto (https://linkedin.com/in/joao208) and Mateus Coutinho (https://linkedin.com/in/coutinhomm)'
   )
-  console.log('%c ', style)
 
   return (
     <>

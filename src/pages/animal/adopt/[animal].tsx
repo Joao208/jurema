@@ -49,7 +49,11 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
 
     if (!checked) return setErrorCheckbox(true)
 
-    await sendAdoption({ name, phone, animalLink: animal?.animalLink })
+    await sendAdoption({
+      name,
+      phone,
+      animalLink: `https://projetojurema.org/animal/${animal?.id}`,
+    })
 
     localStorage.setItem('userData', JSON.stringify({ name, phone }))
 
