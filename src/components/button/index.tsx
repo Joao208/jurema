@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { LoadingIcon } from 'public/loading'
 import * as S from './styles'
 
 interface ButtonProps {
@@ -9,6 +10,7 @@ interface ButtonProps {
   height?: string
   mobileHeight?: string
   mobileWidth?: string
+  isLoading?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -19,29 +21,35 @@ export const Button: React.FC<ButtonProps> = ({
   height,
   mobileHeight,
   mobileWidth,
+  isLoading,
+  ...props
 }) => {
   if (!href)
     return (
       <S.Button
         mobileHeight={mobileHeight}
         mobileWidth={mobileWidth}
-        onClick={onClick}
+        onClick={!isLoading ? onClick : () => {}}
         width={width}
+        isLoading={isLoading}
         height={height}
+        {...props}
       >
-        {buttonText}
+        {isLoading ? <LoadingIcon /> : buttonText}
       </S.Button>
     )
 
   return (
     <Link href={href} passHref>
       <S.Button
+        {...props}
         mobileHeight={mobileHeight}
         mobileWidth={mobileWidth}
         width={width}
+        isLoading={isLoading}
         height={height}
       >
-        {buttonText}
+        {isLoading ? <LoadingIcon /> : buttonText}
       </S.Button>
     </Link>
   )

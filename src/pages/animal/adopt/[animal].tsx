@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { GetStaticPropsContext } from 'next'
+import { toast } from 'react-toastify'
 import * as S from 'src/styles/animal'
 
 import { Input } from 'src/components/input'
@@ -20,6 +21,7 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
   const [isValidPhone, setIsValidPhone] = useState(true)
   const [checked, setChecked] = useState(false)
   const [errorCheckbox, setErrorCheckbox] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const userData = localStorage.getItem('userData')
@@ -30,41 +32,106 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
       setName(user.name)
       setPhone(user.phone)
     }
+  }, [])
 
-    const [firstName, lastName = ''] = name.split(' ')
+  const validateName = useCallback(() => {
+    const [firstName, lastName = ''] = name?.split(' ') || []
 
-    if (firstName.length < 4 || lastName?.length < 4) {
-      return setIsValidName(!name)
+    if (firstName?.length < 4 || lastName?.length < 4) {
+      setIsValidName(!name)
+
+      return !name
     }
 
+    return true
+  }, [name])
+
+  const validatePhone = useCallback(() => {
     if (phone.length < 4) {
-      return setIsValidPhone(!phone)
+      setIsValidPhone(!phone)
+
+      return !phone
     }
 
     setIsValidName(true)
-  }, [name, phone])
+
+    return true
+  }, [phone])
+
+  useEffect(() => {
+    validateName()
+    validatePhone()
+  }, [name, phone, validatePhone, validateName])
 
   const handleSubmit = useCallback(async () => {
-    if (!isValidName || !isValidPhone) return
+    try {
+      setIsLoading(true)
 
-    if (!checked) return setErrorCheckbox(true)
+      if (!isValidName || !isValidPhone) return
 
-    await sendAdoption({
-      name,
-      phone,
-      animalLink: `https://projetojurema.org/animal/${animal?.id}`,
-    })
+      if (!name || !checked || !phone) {
+        if (!checked) setErrorCheckbox(true)
 
-    localStorage.setItem('userData', JSON.stringify({ name, phone }))
+        if (!name) setIsValidName(false)
 
-    localStorage.setItem(animal?.id.toString(), 'alreadyAdopted')
+        if (!phone) setIsValidPhone(false)
 
-    window.location.href = `/animal/adopt/success/${animal?.id}`
+        return
+      }
+
+      await sendAdoption({
+        name,
+        phone,
+        animalLink: `https://projetojurema.org/animal/${animal?.id}`,
+      })
+
+      localStorage.setItem('userData', JSON.stringify({ name, phone }))
+
+      localStorage.setItem(animal?.id.toString(), 'alreadyAdopted')
+
+      window.location.href = `/animal/adopt/success/${animal?.id}`
+    } catch (error) {
+      const message = 'Parece que algo deu errado, tente novamente mais tarde'
+
+      return toast.error(message)
+    } finally {
+      setIsLoading(false)
+    }
   }, [isValidName, isValidPhone, name, phone, animal, checked])
 
   const handleCheck = useCallback((e: boolean) => {
     setChecked(e)
   }, [])
+
+  const handleNext = () => {
+    const activeId = document.activeElement?.id || ''
+
+    const inputs = {
+      'name-input': 'phone-input',
+    } as { [key: string]: string }
+
+    const validators = {
+      'name-input': validateName,
+      'phone-input': validateName,
+    } as { [key: string]: Function }
+
+    const setters = {
+      'name-input': setIsValidName,
+      'phone-input': setIsValidPhone,
+    } as { [key: string]: Function }
+
+    const isValid = validators[activeId]?.()
+
+    if (!isValid) return setters[activeId]?.(isValid)
+
+    if (!inputs[activeId]) return handleSubmit()
+
+    const input = document.getElementById(inputs[activeId])
+
+    if (input) {
+      input.focus()
+    }
+  }
 
   return (
     <Template
@@ -80,16 +147,20 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
         entraremos em contato com você para prosseguir com o processo de adoção
       </S.Description>
       <Input
+        id="name-input"
         error={!isValidName && 'Nome é obrigatório'}
         mask=""
         placeholder="João Silva"
+        onEnter={handleNext}
         value={name}
         setValue={setName}
         label="Qual seu nome?"
       />
       <Input
+        id="phone-input"
         mask="(99) 99999-9999"
         placeholder="(00) 00000-0000"
+        onEnter={handleNext}
         value={phone}
         setValue={setPhone}
         label="Qual seu número de telefone?"
@@ -106,6 +177,7 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
         mobileWidth="175px"
         onClick={handleSubmit}
         width="222px"
+        isLoading={isLoading}
         buttonText="Confirmar"
       />
     </Template>

@@ -9,6 +9,8 @@ interface InputProps {
   setValue: (param: string) => any
   error?: string | false
   type?: string
+  id?: string
+  onEnter?: (value: string) => any
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -18,7 +20,8 @@ export const Input: React.FC<InputProps> = ({
   setValue,
   mask = '',
   error = '',
-  type,
+  onEnter = () => {},
+  ...props
 }) => {
   const [focus, setFocus] = useState(false)
 
@@ -26,7 +29,6 @@ export const Input: React.FC<InputProps> = ({
     <S.Container>
       <S.Label focus={focus}>{label}</S.Label>
       <S.Input
-        type={type}
         error={!!error}
         mask={mask}
         onBlur={() => setFocus(false)}
@@ -34,6 +36,12 @@ export const Input: React.FC<InputProps> = ({
         value={value}
         onChange={(e: any) => setValue(e.target.value)}
         placeholder={placeholder}
+        onKeyDown={(e: any) => {
+          if (e.key === 'Enter') {
+            onEnter(e.target.value)
+          }
+        }}
+        {...props}
       />
       {error && <p className="error">{error}</p>}
     </S.Container>

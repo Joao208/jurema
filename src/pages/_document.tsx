@@ -43,6 +43,8 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
+        <title>Projeto Jurema</title>
+
         <Head>
           <link rel="icon" href="logo.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />

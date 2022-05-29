@@ -1,5 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { ButtonInterface } from './interface'
+
+export const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`
 
 export const Button = styled.div<ButtonInterface>`
   background: #9100a9;
@@ -47,4 +57,26 @@ export const Button = styled.div<ButtonInterface>`
 
     font-size: 15px;
   }
+
+  ${(props) =>
+    props.isLoading &&
+    css`
+      > svg {
+        animation: ${rotate} 0.5s linear infinite;
+      }
+
+      cursor: not-allowed;
+
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+        #ffffff;
+
+      :hover {
+        background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1)
+          ),
+          #ffffff;
+      }
+    `}
 `
