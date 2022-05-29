@@ -1,14 +1,8 @@
 ![Cover](.github/Readme.png)
 <br>
 
-<p align="center">
-  <img alt="GitHub" src="https://img.shields.io/github/license/easybase/easybase-react">
-  <img alt="npm" src="https://img.shields.io/badge/npm-v16.14.0-brightgreen">
-</p>
-
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Google_Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
 
 <p>⭐ Star us on GitHub — it motivates us a lot! ⭐</p>
 
@@ -22,7 +16,6 @@
 
 - [Getting Started](#getting-started)
 - [Technologies](#technologies)
-- [License](#⚠️-license)
 
 ## Getting Started
 
@@ -43,11 +36,6 @@ And then run the follow command:
 ```bash
 yarn dev
 ```
-
-After install all dependencies of the project, it's recommended to read the explanation of how
-to initiate in each project part:
-
-The explanation can be found bellow:
 
 ## Technologies
 
