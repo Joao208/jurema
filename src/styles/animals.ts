@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { CardAnimalInterface } from 'src/interfaces'
 import styled, { css, keyframes } from 'styled-components'
 
-const Shine = keyframes`
+export const Shine = keyframes`
 to {
     background-position-x: -200%;
   }

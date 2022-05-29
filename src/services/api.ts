@@ -17,3 +17,12 @@ interface Forms {
 export const sendAdoption = async (data: Forms) => {
   return api.post('/forms', data)
 }
+
+interface Payment {
+  value: number
+  name: string | undefined | string[]
+}
+
+export const getQR = async (data: Payment) => {
+  return api.post('/pix', data)
+}

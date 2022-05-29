@@ -158,6 +158,12 @@ export const FlexWrapperSuccess = styled.div`
     gap: 25px;
   }
 
+  .hideOnMobile {
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
   @media (max-width: 900px) {
     flex-direction: column-reverse;
 
