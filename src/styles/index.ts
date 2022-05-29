@@ -6,7 +6,9 @@ export const Scroll = styled.div.attrs({
 })`
   height: 100vh;
 
+  -webkit-overflow-y: scroll;
   overflow-y: scroll;
+
   scroll-behavior: smooth;
 `
 

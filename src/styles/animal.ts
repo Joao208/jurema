@@ -29,6 +29,8 @@ export const Title = styled.p`
   display: flex;
   align-items: center;
 
+  text-transform: capitalize;
+
   color: #202020;
 
   margin: 0;

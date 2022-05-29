@@ -19,7 +19,7 @@ export const Template: React.FC<TemplateProps> = ({
   showNavigation = true,
   title,
   showTitle = true,
-  showFooter = false,
+  showFooter = true,
 }) => {
   return (
     <Scroll>

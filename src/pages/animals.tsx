@@ -3,12 +3,69 @@ import Link from 'next/link'
 import { BreedIcon } from 'public/detailsIcons/breed'
 import { GenderIcon } from 'public/detailsIcons/gender'
 import { EmptyIcon } from 'public/empty'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
 import { getAnimals } from 'src/services/api'
 import { Description, FlexWrapperSuccess, SubTitle } from 'src/styles/animal'
 import * as S from 'src/styles/animals'
+
+export interface Animal {
+  id: number
+  name: string
+  breed: string
+  sex: string
+  photo: string
+  species: string
+  size: string
+  is_castrated: string
+  personality: string
+  animalLink: string
+  description?: string
+}
+
+const AnimalComponente = ({
+  index,
+  animal,
+}: {
+  index: any
+  animal: Animal
+}) => {
+  const [image, setImage] = useState(animal?.photo)
+
+  const handleErrorImage = useCallback(() => {
+    setImage(
+      'https://media.istockphoto.com/vectors/error-404-page-not-found-vector-id673101428?k=20&m=673101428&s=170667a&w=0&h=sifFCXQls5ygak3Y-II0cI1tibgQZVyPWzpLHtHKOGg='
+    )
+  }, [])
+
+  return (
+    <Link key={index} href={`/animal/${animal.id}`} passHref>
+      <S.Card>
+        <S.CardImage
+          onError={handleErrorImage}
+          placeholder="blur"
+          src={image}
+        />
+        <S.CardTitle>{animal.name}</S.CardTitle>
+
+        <S.DetailContainer>
+          <S.Detail>
+            <BreedIcon />
+            <p>{animal.breed}</p>
+          </S.Detail>
+        </S.DetailContainer>
+
+        <S.DetailContainer>
+          <S.Detail>
+            <GenderIcon />
+            <p>{animal.sex}</p>
+          </S.Detail>
+        </S.DetailContainer>
+      </S.Card>
+    </Link>
+  )
+}
 
 const EmptyAnimals: React.FC = () => {
   return (
@@ -37,20 +94,6 @@ const EmptyAnimals: React.FC = () => {
   )
 }
 
-export interface Animal {
-  id: number
-  name: string
-  breed: string
-  sex: string
-  photo: string
-  species: string
-  size: string
-  is_castrated: string
-  personality: string
-  animalLink: string
-  description?: string
-}
-
 const Animals: NextPage = () => {
   const [animals, setAnimals] = useState<Animal[]>([])
 
@@ -72,26 +115,7 @@ const Animals: NextPage = () => {
       <S.FlexWrapper>
         {animals.length ? (
           animals.map((animal: Animal, index) => (
-            <Link key={index} href={`/animal/${animal.id}`} passHref>
-              <S.Card>
-                <S.CardImage placeholder="blur" src={animal.photo} />
-                <S.CardTitle>{animal.name}</S.CardTitle>
-
-                <S.DetailContainer>
-                  <S.Detail>
-                    <BreedIcon />
-                    <p>{animal.breed}</p>
-                  </S.Detail>
-                </S.DetailContainer>
-
-                <S.DetailContainer>
-                  <S.Detail>
-                    <GenderIcon />
-                    <p>{animal.sex}</p>
-                  </S.Detail>
-                </S.DetailContainer>
-              </S.Card>
-            </Link>
+            <AnimalComponente key={index} index={index} animal={animal} />
           ))
         ) : (
           <EmptyAnimals />

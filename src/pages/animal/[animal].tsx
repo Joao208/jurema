@@ -11,7 +11,7 @@ import { SearchIcon } from 'public/detailsIcons/search'
 import { BackgroundImage } from 'public/background'
 import { Template } from 'src/components/template'
 import { Button } from 'src/components/button'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getAnimals } from 'src/services/api'
 import { Animal } from '../animals'
 
@@ -21,6 +21,7 @@ interface AnimalInterface {
 
 const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   const [alreadyAdopted, setAlreadyAdopted] = useState(false)
+  const [image, setImage] = useState(animal?.photo)
 
   useEffect(() => {
     const animalInLocalStorage =
@@ -31,6 +32,12 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
     }
   }, [animal])
 
+  const handleErrorImage = useCallback(() => {
+    setImage(
+      'https://media.istockphoto.com/vectors/error-404-page-not-found-vector-id673101428?k=20&m=673101428&s=170667a&w=0&h=sifFCXQls5ygak3Y-II0cI1tibgQZVyPWzpLHtHKOGg='
+    )
+  }, [])
+
   return (
     <Template
       paths={[
@@ -38,14 +45,13 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
         { path: `/animal/${animal?.id}`, label: animal?.name },
       ]}
       title={animal?.name}
+      showTitle={false}
     >
       <S.FlexWrapper>
         <S.LeftContainer>
           <S.Title>{animal?.name}</S.Title>
           <S.SubTitle>Como ele é?</S.SubTitle>
-          <S.Description>
-            {animal?.description}
-          </S.Description>
+          <S.Description>{animal?.description}</S.Description>
           <S.SubTitle>Quais suas características?</S.SubTitle>
           <S.DetailsContainer>
             <div className="left">
@@ -102,7 +108,7 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
           )}
         </S.LeftContainer>
         <S.ImageContainer>
-          <S.Image src={animal?.photo} />
+          <S.Image placeholder="blur" onError={handleErrorImage} src={image} />
           <S.Background>
             <BackgroundImage />
           </S.Background>
