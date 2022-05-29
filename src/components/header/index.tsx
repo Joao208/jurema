@@ -89,8 +89,10 @@ export const Header: React.FC<HeaderProps> = ({ showBorder = true }) => {
         <S.Option>Telefone: +55 19 98921-9327</S.Option>
 
         <S.TitleMenu>Nossas redes sociais</S.TitleMenu>
-        <S.Option>Facebook</S.Option>
-        <S.Option>Instagram</S.Option>
+
+        <Link href="https://www.instagram.com/projeto_jurema/" passHref>
+          <S.Option>Instagram</S.Option>
+        </Link>
       </S.Menu>
     </>
   )

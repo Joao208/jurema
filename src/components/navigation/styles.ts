@@ -1,6 +1,20 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  @media (max-width: 900px) {
+    .desktop {
+      display: none;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .mobile {
+      display: none !important;
+    }
+  }
+`
+
+export const ContainerDesktop = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -26,5 +40,17 @@ export const Container = styled.div`
   svg {
     cursor: pointer;
     height: 20px;
+  }
+`
+
+export const ContainerMobile = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    position: absolute;
+    left: 0;
   }
 `

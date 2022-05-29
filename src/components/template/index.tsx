@@ -9,6 +9,8 @@ interface TemplateProps {
   paths?: Path[]
   showNavigation?: boolean
   title?: string
+  showTitle?: boolean
+  showFooter?: boolean
 }
 
 export const Template: React.FC<TemplateProps> = ({
@@ -16,6 +18,8 @@ export const Template: React.FC<TemplateProps> = ({
   paths = [],
   showNavigation = true,
   title,
+  showTitle = true,
+  showFooter = false,
 }) => {
   return (
     <Scroll>
@@ -23,11 +27,11 @@ export const Template: React.FC<TemplateProps> = ({
         <Header />
       </HeaderContent>
       <Container>
-        {showNavigation && <Navigation paths={paths} />}
-        {title && <Title>{title}</Title>}
+        {showNavigation && <Navigation paths={paths} title={title} />}
+        {showTitle && title && <Title className="hideOnMobile">{title}</Title>}
         {children}
       </Container>
-      <Footer />
+      {showFooter && <Footer />}
     </Scroll>
   )
 }

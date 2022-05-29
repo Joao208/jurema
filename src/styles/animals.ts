@@ -12,6 +12,12 @@ export const Container = styled.div`
   @media (max-width: 800px) {
     padding: 0px 24px;
   }
+
+  .hideOnMobile {
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
 `
 
 export const Title = styled.p`
@@ -40,6 +46,7 @@ export const FlexWrapper = styled.div`
 
   height: auto;
   gap: 64px;
+  padding: 10px 0;
 
   @media (max-width: 900px) {
     gap: 15px;
@@ -62,6 +69,13 @@ export const Card = styled.div`
     width: 156px;
     height: 255px;
   }
+
+  :hover {
+    background: #f3e4ff;
+    box-shadow: 0px 4px 4px rgba(72, 0, 84, 0.25);
+  }
+
+  transition: all 0.2s ease-in-out;
 `
 
 export const CardTitle = styled.p`

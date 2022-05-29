@@ -73,7 +73,7 @@ const Animals: NextPage = () => {
           animals.map((animal: Animal, index) => (
             <Link key={index} href={`/animal/${animal.id}`} passHref>
               <S.Card>
-                <S.CardImage src={animal.photo} />
+                <S.CardImage placeholder="blur" src={animal.photo} />
                 <S.CardTitle>{animal.name}</S.CardTitle>
 
                 <S.DetailContainer>

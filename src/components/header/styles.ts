@@ -57,6 +57,15 @@ export const Text = styled.div`
   order: 0;
   flex-grow: 0;
   margin: 0px 10px;
+
+  :hover {
+    color: #590067;
+  }
+
+  :active {
+    color: #9100a9;
+    text-decoration-line: underline;
+  }
 `
 
 export const Button = styled.div`
@@ -83,6 +92,19 @@ export const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  :hover {
+    background: #e8d0ec;
+    color: #590067;
+    border: none;
+  }
+
+  :active {
+    background: #e8d0ec;
+    color: #590067;
+    border: none;
+    border: 4px solid rgba(232, 208, 236, 0.5);
+  }
 `
 
 export const HamburgerContainer = styled.div<HamburgerContainerInterface>`
@@ -165,6 +187,7 @@ export const Menu = styled.div<MenuInterface>`
   height: 0;
   width: 100vw;
   transition: 0.8s ease;
+  left: 0;
 
   padding: 0 20px;
 

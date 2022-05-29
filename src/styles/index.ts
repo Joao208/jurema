@@ -7,6 +7,7 @@ export const Scroll = styled.div.attrs({
   height: 100vh;
 
   overflow-y: scroll;
+  scroll-behavior: smooth;
 `
 
 export const HeaderContent = styled.div<HeaderContentInterface>`
@@ -238,7 +239,6 @@ export const NumberToCall = styled.a`
   line-height: 55px;
 
   margin: 0;
-  cursor: pointer;
 
   background: linear-gradient(90deg, #9100a9 0%, #590067 100%);
   -webkit-background-clip: text;

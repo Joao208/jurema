@@ -16,9 +16,14 @@ export const ContainerCheckBox = styled.div`
     display: flex;
     align-items: center;
 
-    width: 603px;
+    max-width: 603px;
 
     color: #3a3a3a;
+
+    @media (max-width: 900px) {
+      font-weight: 400;
+      font-size: 14px;
+    }
   }
 
   .container input {

@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
 import { DonateImage } from 'public/donate'
 import { GiftImage } from 'public/gift'
 import { ONGImage } from 'public/ong'
@@ -51,9 +50,8 @@ const Home: NextPage = () => {
           Encontre seu novo amigo e torne o mundo um lugar um pouco mais
           aconchegante.
         </S.Description>
-        <Link href="/animals" passHref>
-          <S.Button>Ver animais</S.Button>
-        </Link>
+
+        <Button href="/animals" buttonText="Ver animais" width="244px" />
       </S.ImageHeader>
 
       {cards.map((card) => (
@@ -72,7 +70,7 @@ const Home: NextPage = () => {
         </S.Wrapper>
       ))}
 
-      <S.Wrapper height="587.03px" type="reverse">
+      <S.Wrapper id="denounce" height="587.03px" type="reverse">
         <S.Content type="reverse">
           <S.TitleContent>Saiba como denunciar</S.TitleContent>
           <S.DescriptionContent>

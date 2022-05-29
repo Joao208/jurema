@@ -20,7 +20,11 @@ const Donate: React.FC = () => {
   }
 
   return (
-    <Template paths={[{ path: '/donate', label: 'Doe' }]}>
+    <Template
+      showTitle={false}
+      title="Doe"
+      paths={[{ path: '/donate', label: 'Doe' }]}
+    >
       <S.FlexWrapper>
         <div className="left">
           <Title>Doe</Title>

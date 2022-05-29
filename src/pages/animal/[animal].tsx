@@ -37,6 +37,7 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
         { path: '/animals', label: 'Adote um amigo' },
         { path: `/animal/${animal?.id}`, label: animal?.name },
       ]}
+      title={animal?.name}
     >
       <S.FlexWrapper>
         <S.LeftContainer>

@@ -13,4 +13,14 @@ export const FlexWrapper = styled.div`
       gap: 24px;
     }
   }
+
+  @media (max-width: 900px) {
+    flex-direction: column-reverse;
+    gap: 24px;
+
+    svg {
+      width: 327px;
+      height: 290.21px;
+    }
+  }
 `

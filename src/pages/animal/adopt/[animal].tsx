@@ -22,6 +22,15 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
   const [errorCheckbox, setErrorCheckbox] = useState(false)
 
   useEffect(() => {
+    const userData = localStorage.getItem('userData')
+
+    if (userData) {
+      const user = JSON.parse(userData)
+
+      setName(user.name)
+      setPhone(user.phone)
+    }
+
     const [firstName, lastName = ''] = name.split(' ')
 
     if (firstName.length < 4 || lastName?.length < 4) {
@@ -41,6 +50,10 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
     if (!checked) return setErrorCheckbox(true)
 
     await sendAdoption({ name, phone, animalLink: animal?.animalLink })
+
+    localStorage.setItem('userData', JSON.stringify({ name, phone }))
+
+    localStorage.setItem(animal?.id.toString(), 'alreadyAdopted')
 
     window.location.href = `/animal/adopt/success/${animal?.id}`
   }, [isValidName, isValidPhone, name, phone, animal, checked])
