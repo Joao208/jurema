@@ -75,11 +75,8 @@ export const DetailsContainer = styled.div`
   display: flex;
 
   max-width: 450px;
-  justify-content: space-between;
 
-  flex-wrap: wrap;
-
-  gap: 20px;
+  gap: 64px;
 `
 
 export const ImageContainer = styled.div`
