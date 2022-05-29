@@ -32,24 +32,24 @@ const AnimalComponente = ({
   animal: Animal
 }) => {
   const [image, setImage] = useState(animal?.photo)
+  const [imageError, setImageError] = useState(false)
 
   const handleErrorImage = useCallback(() => {
-    setImage(
-      'https://media.istockphoto.com/vectors/error-404-page-not-found-vector-id673101428?k=20&m=673101428&s=170667a&w=0&h=sifFCXQls5ygak3Y-II0cI1tibgQZVyPWzpLHtHKOGg='
-    )
+    setImage('/image404.png')
+    setImageError(true)
   }, [])
 
   return (
     <Link key={index} href={`/animal/${animal.id}`} passHref>
       <S.Card>
         <S.CardImage
-          onError={handleErrorImage}
+          onErrorCapture={handleErrorImage}
           placeholder="blur"
-          src={image}
+          src={imageError ? '/image404.png' : image}
           width="100%"
           height="100%"
           layout="responsive"
-          blurDataURL={image}
+          blurDataURL={imageError ? '/image404.png' : image}
         />
         <S.CardTitle>{animal.name}</S.CardTitle>
 

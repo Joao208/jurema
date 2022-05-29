@@ -34,9 +34,7 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   }, [animal])
 
   const handleErrorImage = useCallback(() => {
-    setImage(
-      'https://media.istockphoto.com/vectors/error-404-page-not-found-vector-id673101428?k=20&m=673101428&s=170667a&w=0&h=sifFCXQls5ygak3Y-II0cI1tibgQZVyPWzpLHtHKOGg='
-    )
+    setImage('/image404.png')
   }, [])
 
   return (

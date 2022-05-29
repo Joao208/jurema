@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-title-in-document-head */
 import React from 'react'
 import Document, {
   Html,
@@ -46,6 +47,7 @@ export default class MyDocument extends Document {
         <title>Projeto Jurema</title>
 
         <Head>
+          <title>Projeto Jurema</title>
           <link rel="icon" href="logo.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -71,9 +73,21 @@ export default class MyDocument extends Document {
             media="(prefers-color-scheme: dark)"
           />
           <meta
+            name="image"
+            prefix="og: http://ogp.me/ns#"
+            property="og:image"
+            content="/henrique.jpg"
+          />
+          <meta
             name="description"
             content="Checkout our cool page"
             key="desc"
+          />
+          <meta
+            prefix="og: http://ogp.me/ns#"
+            property="og:title"
+            content="Projeto Jurema"
+            key="title"
           />
           <meta
             property="og:description"
