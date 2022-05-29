@@ -47,7 +47,7 @@ const DesktopNavigation: React.FC<NavigationProps> = ({ paths }) => {
         <>
           <DesktopArrow />
           {index === paths.length - 1 ? (
-            <p>{label}</p>
+            <p className="label">{label}</p>
           ) : (
             <Link href={path} passHref>
               <p className="redirect">{label}</p>

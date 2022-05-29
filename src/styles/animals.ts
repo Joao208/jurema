@@ -1,5 +1,12 @@
 import Image from 'next/image'
-import styled from 'styled-components'
+import { CardAnimalInterface } from 'src/interfaces'
+import styled, { css, keyframes } from 'styled-components'
+
+const Shine = keyframes`
+to {
+    background-position-x: -200%;
+  }
+`
 
 export const Container = styled.div`
   display: flex;
@@ -54,7 +61,7 @@ export const FlexWrapper = styled.div`
   }
 `
 
-export const Card = styled.div`
+export const Card = styled.div<CardAnimalInterface>`
   width: 334px;
   height: 494px;
 
@@ -77,6 +84,14 @@ export const Card = styled.div`
   }
 
   transition: all 0.2s ease-in-out;
+
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      background-size: 200% 100%;
+      animation: 1.5s ${Shine} linear infinite;
+    `}
 `
 
 export const CardTitle = styled.p`

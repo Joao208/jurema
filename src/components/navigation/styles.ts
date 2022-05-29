@@ -33,6 +33,10 @@ export const ContainerDesktop = styled.div`
     height: 20px;
   }
 
+  .label {
+    text-transform: capitalize;
+  }
+
   p[class='redirect'] {
     cursor: pointer;
   }

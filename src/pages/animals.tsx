@@ -71,6 +71,17 @@ const AnimalComponente = ({
   )
 }
 
+const Loading = () => {
+  return (
+    <>
+      <S.Card isLoading />
+      <S.Card isLoading />
+      <S.Card isLoading />
+      <S.Card isLoading />
+    </>
+  )
+}
+
 const EmptyAnimals: React.FC = () => {
   return (
     <FlexWrapperSuccess>
@@ -100,12 +111,17 @@ const EmptyAnimals: React.FC = () => {
 
 const Animals: NextPage = () => {
   const [animals, setAnimals] = useState<Animal[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchBackend = async () => {
+      setIsLoading(true)
+
       const { data: apiResponse } = await getAnimals()
 
       setAnimals(apiResponse)
+
+      setIsLoading(false)
     }
 
     fetchBackend()
@@ -117,13 +133,15 @@ const Animals: NextPage = () => {
       title="Adote um amigo"
     >
       <S.FlexWrapper>
-        {animals.length ? (
-          animals.map((animal: Animal, index) => (
-            <AnimalComponente key={index} index={index} animal={animal} />
-          ))
-        ) : (
-          <EmptyAnimals />
-        )}
+        {isLoading && <Loading />}
+        {!isLoading &&
+          (animals.length ? (
+            animals.map((animal: Animal, index) => (
+              <AnimalComponente key={index} index={index} animal={animal} />
+            ))
+          ) : (
+            <EmptyAnimals />
+          ))}
       </S.FlexWrapper>
     </Template>
   )
