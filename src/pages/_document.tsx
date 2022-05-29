@@ -80,7 +80,7 @@ export default class MyDocument extends Document {
           />
           <meta
             name="description"
-            content="Checkout our cool page"
+            content="Adote um animal de estimação e torne o mundo um lugar mais aconchegante."
             key="desc"
           />
           <meta
@@ -91,7 +91,7 @@ export default class MyDocument extends Document {
           />
           <meta
             property="og:description"
-            content="And a social description for our cool page"
+            content="Adote um animal de estimação e torne o mundo um lugar mais aconchegante."
           />
           <link rel="manifest" href="" />
           <meta name="keywords" content="projeto, animal, ajuda, jurema" />
