@@ -78,10 +78,14 @@ export const Card = styled.div<CardAnimalInterface>`
     height: 255px;
   }
 
-  :hover {
-    background: #f3e4ff;
-    box-shadow: 0px 4px 4px rgba(72, 0, 84, 0.25);
-  }
+  ${({ isLoading }) =>
+    !isLoading &&
+    css`
+      :hover {
+        background: #f3e4ff;
+        box-shadow: 0px 4px 4px rgba(72, 0, 84, 0.25);
+      }
+    `}
 
   transition: all 0.2s ease-in-out;
 
@@ -91,6 +95,8 @@ export const Card = styled.div<CardAnimalInterface>`
       background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
       background-size: 200% 100%;
       animation: 1.5s ${Shine} linear infinite;
+
+      cursor: default;
     `}
 `
 
