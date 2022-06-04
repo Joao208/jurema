@@ -2,7 +2,6 @@ import { createGlobalStyle } from 'styled-components'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Head from 'next/head'
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -33,9 +32,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Head>
-        <title>Projeto Jurema</title>
-      </Head>
       <GlobalStyle />
       <Component {...pageProps} />
       <ToastContainer

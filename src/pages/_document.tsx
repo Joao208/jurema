@@ -1,12 +1,11 @@
-/* eslint-disable @next/next/no-title-in-document-head */
 import React from 'react'
 import Document, {
   Html,
-  Head,
   Main,
   NextScript,
   DocumentContext,
   DocumentInitialProps,
+  Head,
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
@@ -44,17 +43,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <title>Projeto Jurema</title>
-
         <Head>
-          <title>Projeto Jurema</title>
-          <link rel="icon" href="logo.png" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin=""
-          />
           <link
             href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
@@ -63,39 +52,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
           />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1"
-          />
-          <meta
-            name="theme-color"
-            content="#000"
-            media="(prefers-color-scheme: dark)"
-          />
-          <meta
-            name="image"
-            prefix="og: http://ogp.me/ns#"
-            property="og:image"
-            content="/henrique.jpg"
-          />
-          <meta
-            name="description"
-            content="Adote um animal de estimação e torne o mundo um lugar mais aconchegante."
-            key="desc"
-          />
-          <meta
-            prefix="og: http://ogp.me/ns#"
-            property="og:title"
-            content="Projeto Jurema"
-            key="title"
-          />
-          <meta
-            property="og:description"
-            content="Adote um animal de estimação e torne o mundo um lugar mais aconchegante."
-          />
-          <link rel="manifest" href="" />
-          <meta name="keywords" content="projeto, animal, ajuda, jurema" />
-          <meta name="author" content="joao208 and coutinhomm" />
+          <link rel="icon" href="logo.png" />
         </Head>
         <Main />
         <NextScript />

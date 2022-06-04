@@ -15,6 +15,7 @@ import { Button } from 'src/components/button'
 import { useCallback, useEffect, useState } from 'react'
 import { getAnimals } from 'src/services/api'
 import { Animal } from '../animals'
+import { SickIcon } from 'public/detailsIcons/sick'
 
 interface AnimalInterface {
   animal: Animal
@@ -36,6 +37,14 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   const handleErrorImage = useCallback(() => {
     setImage('/image404.png')
   }, [])
+
+  const getSickInformation = (fiv: string, felv: string) => {
+    if (fiv === 'Sim' && felv === 'Sim') return 'Possui FIV e FeLV'
+
+    if (fiv === 'Sim') return 'Possui FIV'
+
+    if (felv === 'Sim') return 'Possui FeLV'
+  }
 
   return (
     <>
@@ -79,6 +88,7 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
         ]}
         title={animal?.name}
         showTitle={false}
+        showHead={false}
       >
         <S.FlexWrapper>
           <S.LeftContainer>
@@ -125,6 +135,14 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
                   <SearchIcon />
                   <p>{animal?.personality}</p>
                 </Detail>
+
+                {(animal.fiv !== 'Não aplicável' ||
+                  animal.felv !== 'Não aplicável') && (
+                  <Detail>
+                    <SickIcon />
+                    <p>{getSickInformation(animal.fiv, animal.felv)}</p>
+                  </Detail>
+                )}
               </div>
             </S.DetailsContainer>
             {alreadyAdopted ? (

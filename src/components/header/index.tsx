@@ -87,10 +87,6 @@ export const Header: React.FC<HeaderProps> = ({ showBorder = true }) => {
           <S.Option>Contribua</S.Option>
         </Link>
 
-        <S.TitleMenu>Contato</S.TitleMenu>
-        <S.Option>E-mail: hnp.pozer@gmail.com</S.Option>
-        <S.Option>Telefone: +55 19 98921-9327</S.Option>
-
         <S.TitleMenu>Nossas redes sociais</S.TitleMenu>
 
         <Link href="https://www.instagram.com/projeto_jurema/" passHref>

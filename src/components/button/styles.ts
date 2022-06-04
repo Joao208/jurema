@@ -58,8 +58,8 @@ export const Button = styled.div<ButtonInterface>`
     font-size: 15px;
   }
 
-  ${(props) =>
-    props.isLoading &&
+  ${({ isLoading }) =>
+    isLoading &&
     css`
       > svg {
         animation: ${rotate} 0.5s linear infinite;
@@ -77,6 +77,22 @@ export const Button = styled.div<ButtonInterface>`
             rgba(0, 0, 0, 0.1)
           ),
           #ffffff;
+      }
+    `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background: #999999;
+      cursor: not-allowed;
+
+      :hover {
+        background: #999999;
+      }
+
+      :active {
+        background: #999999;
+        outline: none;
       }
     `}
 `

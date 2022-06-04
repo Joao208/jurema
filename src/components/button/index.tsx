@@ -11,6 +11,7 @@ interface ButtonProps {
   mobileHeight?: string
   mobileWidth?: string
   isLoading?: boolean
+  disabled?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -22,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   mobileHeight,
   mobileWidth,
   isLoading,
+  disabled,
   ...props
 }) => {
   if (!href)
@@ -33,6 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
         width={width}
         isLoading={isLoading}
         height={height}
+        disabled={disabled}
         {...props}
       >
         {isLoading ? <LoadingIcon /> : buttonText}
@@ -48,6 +51,7 @@ export const Button: React.FC<ButtonProps> = ({
         width={width}
         isLoading={isLoading}
         height={height}
+        disabled={disabled}
       >
         {isLoading ? <LoadingIcon /> : buttonText}
       </S.Button>

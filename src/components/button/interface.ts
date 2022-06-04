@@ -6,4 +6,5 @@ export interface ButtonInterface extends InputHTMLAttributes<HTMLInputElement> {
   mobileHeight?: string
   isLoading?: boolean
   mobileWidth?: string
+  disabled?: boolean
 }

@@ -22,6 +22,8 @@ export interface Animal {
   personality: string
   animalLink: string
   description?: string
+  fiv: string
+  felv: string
 }
 
 const AnimalComponente = ({
