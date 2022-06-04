@@ -44,6 +44,8 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
     if (fiv === 'Sim') return 'Possui FIV'
 
     if (felv === 'Sim') return 'Possui FeLV'
+
+    return 'Saudável'
   }
 
   return (
@@ -136,11 +138,11 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
                   <p>{animal?.personality}</p>
                 </Detail>
 
-                {(animal.fiv !== 'Não aplicável' ||
-                  animal.felv !== 'Não aplicável') && (
+                {(animal?.fiv !== 'Não aplicável' ||
+                  animal?.felv !== 'Não aplicável') && (
                   <Detail>
                     <SickIcon />
-                    <p>{getSickInformation(animal.fiv, animal.felv)}</p>
+                    <p>{getSickInformation(animal?.fiv, animal?.felv)}</p>
                   </Detail>
                 )}
               </div>
