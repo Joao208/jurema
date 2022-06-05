@@ -27,7 +27,7 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
   useEffect(() => {
     const animalInLocalStorage =
-      localStorage.getItem(animal.id.toString()) || ''
+      localStorage.getItem(animal?.id.toString()) || ''
 
     if (animalInLocalStorage === 'alreadyAdopted') {
       setAlreadyAdopted(true)
@@ -201,6 +201,15 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
   const animal = animalsResponse?.find?.(
     (animal: Animal) => animal.id.toString() === animalId
   )
+
+  if (!animal) {
+    return {
+      redirect: {
+        destination: '/animals',
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: {
