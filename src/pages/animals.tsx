@@ -1,29 +1,29 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { DataStore, Storage } from 'aws-amplify'
+import { AnimalModel } from 'src/models'
 import { BreedIcon } from 'public/detailsIcons/breed'
 import { GenderIcon } from 'public/detailsIcons/gender'
 import { EmptyIcon } from 'public/empty'
 import { useCallback, useEffect, useState } from 'react'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
-import { getAnimals } from 'src/services/api'
 import { Description, FlexWrapperSuccess, SubTitle } from 'src/styles/animal'
 import * as S from 'src/styles/animals'
 
 export interface Animal {
-  id: number
+  id: string
   name: string
   breed: string
   sex: string
-  photo: string
+  photoKey: string
   species: string
   size: string
-  is_castrated: string
+  is_castrated: boolean
   personality: string
-  animalLink: string
   description?: string
-  fiv: string
-  felv: string
+  fiv: boolean
+  felv: boolean
 }
 
 const AnimalComponente = ({
@@ -33,13 +33,23 @@ const AnimalComponente = ({
   index: any
   animal: Animal
 }) => {
-  const [image, setImage] = useState(animal?.photo)
+  const [image, setImage] = useState('/image404.png')
   const [imageError, setImageError] = useState(false)
 
   const handleErrorImage = useCallback(() => {
     setImage('/image404.png')
     setImageError(true)
   }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      const file = await Storage.get(animal?.photoKey, {
+        level: 'public',
+      })
+
+      setImage(file)
+    })()
+  }, [animal])
 
   return (
     <Link key={index} href={`/animal/${animal.id}`} passHref>
@@ -119,10 +129,9 @@ const Animals: NextPage = () => {
     const fetchBackend = async () => {
       setIsLoading(true)
 
-      const { data: apiResponse } = await getAnimals()
+      const models = await DataStore.query(AnimalModel)
 
-      setAnimals(apiResponse)
-
+      setAnimals(models)
       setIsLoading(false)
     }
 
@@ -139,7 +148,11 @@ const Animals: NextPage = () => {
         {!isLoading &&
           (animals.length ? (
             animals.map((animal: Animal, index) => (
-              <AnimalComponente key={index} index={index} animal={animal} />
+              <AnimalComponente
+                key={animal?.id}
+                index={index}
+                animal={animal}
+              />
             ))
           ) : (
             <EmptyAnimals />

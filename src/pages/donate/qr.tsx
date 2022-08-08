@@ -37,6 +37,8 @@ const QR: React.FC = () => {
   useEffect(() => {
     const fetchBackend = async () => {
       try {
+        if (!value || !name) return
+
         const { data: response } = await getQR({
           name,
           value: Number(value),

@@ -1,0 +1,36 @@
+enum Personality {
+  CALM
+  CURIOUS
+}
+
+enum Size {
+  SMALL
+  BIG
+}
+
+enum Sex {
+  MALE
+  FAMALE
+}
+
+enum Species {
+  DOG
+  CAT
+}
+
+type AnimalModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  species: Species!
+  breed: String!
+  sex: Sex!
+  size: Size!
+  personality: Personality!
+  is_castrated: Boolean!
+  has_chip: Boolean!
+  description: String!
+  fiv: Boolean!
+  felv: Boolean!
+  photoKey: String!
+}
+ 

@@ -3,8 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      'projeto-jurema.s3.amazonaws.com',
-      'projeto-jurema.s3.us-east-2.amazonaws.com',
+      'projeto-jurema-storage-07bc0ee8234609-staging.s3.us-east-2.amazonaws.com',
     ],
   },
 }
