@@ -5,9 +5,6 @@ export const api = axios.create({
   baseURL: 'https://m1b4jzz5e3.execute-api.us-east-2.amazonaws.com/staging',
 })
 
-export const getAnimals = async () => {
-  return api.get('/animals')
-}
 interface Forms {
   name: string
   animalLink: string
