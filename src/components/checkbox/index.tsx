@@ -24,7 +24,7 @@ export const CheckBox: React.FC<CheckBox> = ({
         />
         <span className="checkMark"></span>
       </label>
-      {error && <p className="error">{error}</p>}
+      {error ? <p className="error">{error}</p> : null}
     </S.ContainerCheckBox>
   )
 }

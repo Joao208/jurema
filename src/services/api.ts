@@ -1,13 +1,13 @@
 import axios from 'axios'
+import { buildQueryParams } from 'src/utils/buildQueryParams'
 
 export const api = axios.create({
-  baseURL: 'https://projeto-jurema-site.herokuapp.com/',
+  baseURL: 'https://m1b4jzz5e3.execute-api.us-east-2.amazonaws.com/staging',
 })
 
 export const getAnimals = async () => {
   return api.get('/animals')
 }
-
 interface Forms {
   name: string
   animalLink: string
@@ -15,7 +15,7 @@ interface Forms {
 }
 
 export const sendAdoption = async (data: Forms) => {
-  return api.post('/forms', data)
+  return api.get(`/projetojurema3cb96d42-staging/?${buildQueryParams(data)}`)
 }
 
 interface Payment {
@@ -24,5 +24,5 @@ interface Payment {
 }
 
 export const getQR = async (data: Payment) => {
-  return api.post('/pix', data)
+  return api.get(`/projetojurema98b98055-staging/?${buildQueryParams(data)}`)
 }

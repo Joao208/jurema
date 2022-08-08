@@ -1,5 +1,7 @@
-import { GetStaticPropsContext } from 'next'
+import { useCallback, useEffect, useState } from 'react'
+import { withSSRContext, Storage } from 'aws-amplify'
 import Head from 'next/head'
+import { AnimalModel } from '../../models'
 import { Detail } from 'src/styles/animals'
 import * as S from 'src/styles/animal'
 import { InterrogationIcon } from 'public/detailsIcons/interrogation'
@@ -12,8 +14,6 @@ import { SearchIcon } from 'public/detailsIcons/search'
 import { BackgroundImage } from 'public/background'
 import { Template } from 'src/components/template'
 import { Button } from 'src/components/button'
-import { useCallback, useEffect, useState } from 'react'
-import { getAnimals } from 'src/services/api'
 import { Animal } from '../animals'
 import { SickIcon } from 'public/detailsIcons/sick'
 
@@ -23,27 +23,34 @@ interface AnimalInterface {
 
 const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   const [alreadyAdopted, setAlreadyAdopted] = useState(false)
-  const [image, setImage] = useState(animal?.photo)
+  const [image, setImage] = useState('')
 
   useEffect(() => {
-    const animalInLocalStorage =
-      localStorage.getItem(animal?.id.toString()) || ''
+    ;(async () => {
+      const file = await Storage.get(animal?.photoKey, {
+        level: 'public',
+      })
 
-    if (animalInLocalStorage === 'alreadyAdopted') {
-      setAlreadyAdopted(true)
-    }
+      setImage(file)
+
+      const animalInLocalStorage = localStorage.getItem(animal?.id) || ''
+
+      if (animalInLocalStorage === 'alreadyAdopted') {
+        setAlreadyAdopted(true)
+      }
+    })()
   }, [animal])
 
   const handleErrorImage = useCallback(() => {
     setImage('/image404.png')
   }, [])
 
-  const getSickInformation = (fiv: string, felv: string) => {
-    if (fiv === 'Sim' && felv === 'Sim') return 'Possui FIV e FeLV'
+  const getSickInformation = (fiv: boolean, felv: boolean) => {
+    if (fiv && felv) return 'Possui FIV e FeLV'
 
-    if (fiv === 'Sim') return 'Possui FIV'
+    if (fiv) return 'Possui FIV'
 
-    if (felv === 'Sim') return 'Possui FeLV'
+    if (felv) return 'Possui FeLV'
 
     return 'Saudável'
   }
@@ -126,11 +133,7 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
                 <Detail>
                   <PlusIcon />
-                  <p>
-                    {animal?.is_castrated === 'Sim'
-                      ? 'Castrado'
-                      : 'Não castrado'}
-                  </p>
+                  <p>{animal?.is_castrated ? 'Castrado' : 'Não castrado'}</p>
                 </Detail>
 
                 <Detail>
@@ -138,13 +141,10 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
                   <p>{animal?.personality}</p>
                 </Detail>
 
-                {(animal?.fiv !== 'Não aplicável' ||
-                  animal?.felv !== 'Não aplicável') && (
-                  <Detail>
-                    <SickIcon />
-                    <p>{getSickInformation(animal?.fiv, animal?.felv)}</p>
-                  </Detail>
-                )}
+                <Detail>
+                  <SickIcon />
+                  <p>{getSickInformation(animal?.fiv, animal?.felv)}</p>
+                </Detail>
               </div>
             </S.DetailsContainer>
             {alreadyAdopted ? (
@@ -180,11 +180,13 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default AnimalPage
 
-export async function getStaticPaths() {
-  const { data: animalsResponse } = await getAnimals()
+export async function getStaticPaths(ctx: any) {
+  const { DataStore } = withSSRContext(ctx)
 
-  const paths = animalsResponse.map((animal: Animal) => ({
-    params: { animal: animal.id.toString() },
+  const models = await DataStore.query(AnimalModel)
+
+  const paths = models.map((animal: any) => ({
+    params: { animal: animal.id },
   }))
 
   return {
@@ -193,14 +195,12 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const animalId = params?.animal
+export async function getStaticProps(ctx: any) {
+  const animalId = ctx.params?.animal
 
-  const { data: animalsResponse } = await getAnimals()
+  const { DataStore } = withSSRContext(ctx)
 
-  const animal = animalsResponse?.find?.(
-    (animal: Animal) => animal.id.toString() === animalId
-  )
+  const animal = await DataStore.query(AnimalModel, animalId)
 
   if (!animal) {
     return {
@@ -213,7 +213,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 
   return {
     props: {
-      animal,
+      animal: JSON.parse(JSON.stringify(animal)),
     },
     revalidate: 1000,
   }

@@ -1,7 +1,10 @@
+import { Amplify } from 'aws-amplify'
 import { createGlobalStyle } from 'styled-components'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
+import awsExports from '../aws-exports'
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -26,6 +29,8 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function MyApp({ Component, pageProps }: AppProps) {
+  Amplify.configure({ ...awsExports, ssr: true })
+
   console.log(
     'Powered by João Augusto (https://linkedin.com/in/joao208) and Mateus Coutinho (https://linkedin.com/in/coutinhomm)'
   )

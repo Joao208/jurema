@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3projetojuremastorage07bc0ee8",
+  "bucketName": "projeto-jurema-storage-07bc0ee8",
+  "policyUUID": "5c3c8009",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ"
+  ]
+}

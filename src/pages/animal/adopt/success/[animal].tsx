@@ -1,10 +1,10 @@
-import { GetStaticPropsContext } from 'next'
-import * as S from 'src/styles/animal'
+import { withSSRContext } from 'aws-amplify'
+import { AnimalModel } from '../../../../models'
 
+import * as S from 'src/styles/animal'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
 import { FormIcon } from 'public/form'
-import { getAnimals } from 'src/services/api'
 import { Animal } from 'src/pages/animals'
 
 interface AnimalInterface {
@@ -45,11 +45,13 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default Adopt
 
-export async function getStaticPaths() {
-  const { data: animalsResponse } = await getAnimals()
+export async function getStaticPaths(ctx: any) {
+  const { DataStore } = withSSRContext(ctx)
 
-  const paths = animalsResponse.map((animal: Animal) => ({
-    params: { animal: animal.id.toString() },
+  const models = await DataStore.query(AnimalModel)
+
+  const paths = models.map((animal: any) => ({
+    params: { animal: animal.id },
   }))
 
   return {
@@ -58,18 +60,25 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const animalId = params?.animal
+export async function getStaticProps(ctx: any) {
+  const animalId = ctx.params?.animal
 
-  const { data: animalsResponse } = await getAnimals()
+  const { DataStore } = withSSRContext(ctx)
 
-  const animal = animalsResponse?.find?.(
-    (animal: Animal) => animal.id.toString() === animalId
-  )
+  const animal = await DataStore.query(AnimalModel, animalId)
+
+  if (!animal) {
+    return {
+      redirect: {
+        destination: '/animals',
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: {
-      animal,
+      animal: JSON.parse(JSON.stringify(animal)),
     },
     revalidate: 1000,
   }
