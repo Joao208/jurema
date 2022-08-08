@@ -1,11 +1,12 @@
 import { withSSRContext } from 'aws-amplify'
-import { AnimalModel } from '../../../../models'
+import { Animals as AnimalsModels } from '../../../../models'
 
 import * as S from 'src/styles/animal'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
 import { FormIcon } from 'public/form'
 import { Animal } from 'src/pages/animals'
+import { formatAnimal } from 'src/utils/formatAnimal'
 
 interface AnimalInterface {
   animal: Animal
@@ -48,7 +49,7 @@ export default Adopt
 export async function getStaticPaths(ctx: any) {
   const { DataStore } = withSSRContext(ctx)
 
-  const models = await DataStore.query(AnimalModel)
+  const models = await DataStore.query(AnimalsModels)
 
   const paths = models.map((animal: any) => ({
     params: { animal: animal.id },
@@ -65,7 +66,7 @@ export async function getStaticProps(ctx: any) {
 
   const { DataStore } = withSSRContext(ctx)
 
-  const animal = await DataStore.query(AnimalModel, animalId)
+  const animal = await DataStore.query(AnimalsModels, animalId)
 
   if (!animal) {
     return {
@@ -76,9 +77,11 @@ export async function getStaticProps(ctx: any) {
     }
   }
 
+  const formattedAnimal = await formatAnimal(animal)
+
   return {
     props: {
-      animal: JSON.parse(JSON.stringify(animal)),
+      animal: JSON.parse(JSON.stringify(formattedAnimal)),
     },
     revalidate: 1000,
   }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { AnimalModel } from 'src/models'
+import { Animals as AnimalsModels } from 'src/models'
 import { withSSRContext } from 'aws-amplify'
 
 import * as S from 'src/styles/animal'
@@ -10,6 +10,7 @@ import { Template } from 'src/components/template'
 import { CheckBox } from 'src/components/checkbox'
 import { sendAdoption } from 'src/services/api'
 import { Animal } from 'src/pages/animals'
+import { formatAnimal } from 'src/utils/formatAnimal'
 
 interface AnimalInterface {
   animal: Animal
@@ -190,7 +191,7 @@ export default Adopt
 export async function getStaticPaths(ctx: any) {
   const { DataStore } = withSSRContext(ctx)
 
-  const models = await DataStore.query(AnimalModel)
+  const models = await DataStore.query(AnimalsModels)
 
   const paths = models.map((animal: any) => ({
     params: { animal: animal.id },
@@ -207,7 +208,7 @@ export async function getStaticProps(ctx: any) {
 
   const { DataStore } = withSSRContext(ctx)
 
-  const animal = await DataStore.query(AnimalModel, animalId)
+  const animal = await DataStore.query(AnimalsModels, animalId)
 
   if (!animal) {
     return {
@@ -218,9 +219,11 @@ export async function getStaticProps(ctx: any) {
     }
   }
 
+  const formattedAnimal = await formatAnimal(animal)
+
   return {
     props: {
-      animal: JSON.parse(JSON.stringify(animal)),
+      animal: JSON.parse(JSON.stringify(formattedAnimal)),
     },
     revalidate: 1000,
   }

@@ -4,28 +4,35 @@ import { schema } from './schema';
 
 const Personality = {
   "CALM": "CALM",
-  "CURIOUS": "CURIOUS"
+  "CURIOUS": "CURIOUS",
+  "HECTIC": "HECTIC"
 };
 
 const Size = {
   "SMALL": "SMALL",
-  "BIG": "BIG"
+  "BIG": "BIG",
+  "TINY": "TINY",
+  "MEDIUM": "MEDIUM"
 };
 
 const Sex = {
   "MALE": "MALE",
-  "FAMALE": "FAMALE"
+  "FEMALE": "FEMALE"
 };
 
 const Species = {
   "DOG": "DOG",
-  "CAT": "CAT"
+  "CAT": "CAT",
+  "BIRD": "BIRD",
+  "EQUINE": "EQUINE",
+  "BOVINE": "BOVINE",
+  "WILD_ANIMAL": "WILD_ANIMAL"
 };
 
-const { AnimalModel } = initSchema(schema);
+const { Animals } = initSchema(schema);
 
 export {
-  AnimalModel,
+  Animals,
   Personality,
   Size,
   Sex,

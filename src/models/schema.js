@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "AnimalModel": {
-            "name": "AnimalModel",
+        "Animals": {
+            "name": "Animals",
             "fields": {
                 "id": {
                     "name": "id",
@@ -120,7 +120,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "AnimalModels",
+            "pluralName": "Animals",
             "attributes": [
                 {
                     "type": "model",
@@ -150,31 +150,38 @@ export const schema = {
             "name": "Personality",
             "values": [
                 "CALM",
-                "CURIOUS"
+                "CURIOUS",
+                "HECTIC"
             ]
         },
         "Size": {
             "name": "Size",
             "values": [
                 "SMALL",
-                "BIG"
+                "BIG",
+                "TINY",
+                "MEDIUM"
             ]
         },
         "Sex": {
             "name": "Sex",
             "values": [
                 "MALE",
-                "FAMALE"
+                "FEMALE"
             ]
         },
         "Species": {
             "name": "Species",
             "values": [
                 "DOG",
-                "CAT"
+                "CAT",
+                "BIRD",
+                "EQUINE",
+                "BOVINE",
+                "WILD_ANIMAL"
             ]
         }
     },
     "nonModels": {},
-    "version": "14bfd88d5d44347091a42b07b2d82762"
+    "version": "3d70ab78881aee646836f6f9c1f82b3a"
 };

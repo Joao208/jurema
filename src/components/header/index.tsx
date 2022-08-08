@@ -41,6 +41,9 @@ export const Header: React.FC<HeaderProps> = ({ showBorder = true }) => {
         <Link href="/" passHref>
           <S.LogoContainer>
             <Image
+              loader={({ src, width, quality }) => {
+                return `${src}?w=${width}&q=${quality || 75}`
+              }}
               src="/logo.png"
               alt="Jurema Logo"
               width="47px"

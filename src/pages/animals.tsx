@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { DataStore, Storage } from 'aws-amplify'
-import { AnimalModel } from 'src/models'
+import { Animals as AnimalsModels } from 'src/models'
 import { BreedIcon } from 'public/detailsIcons/breed'
 import { GenderIcon } from 'public/detailsIcons/gender'
 import { EmptyIcon } from 'public/empty'
@@ -10,6 +10,7 @@ import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
 import { Description, FlexWrapperSuccess, SubTitle } from 'src/styles/animal'
 import * as S from 'src/styles/animals'
+import { formatAnimal } from 'src/utils/formatAnimal'
 
 export interface Animal {
   id: string
@@ -24,6 +25,7 @@ export interface Animal {
   description?: string
   fiv: boolean
   felv: boolean
+  photo?: string
 }
 
 const AnimalComponente = ({
@@ -33,23 +35,13 @@ const AnimalComponente = ({
   index: any
   animal: Animal
 }) => {
-  const [image, setImage] = useState('/image404.png')
+  const [image, setImage] = useState(animal?.photo || '/image404.png')
   const [imageError, setImageError] = useState(false)
 
   const handleErrorImage = useCallback(() => {
     setImage('/image404.png')
     setImageError(true)
   }, [])
-
-  useEffect(() => {
-    ;(async () => {
-      const file = await Storage.get(animal?.photoKey, {
-        level: 'public',
-      })
-
-      setImage(file)
-    })()
-  }, [animal])
 
   return (
     <Link key={index} href={`/animal/${animal.id}`} passHref>
@@ -61,6 +53,8 @@ const AnimalComponente = ({
           width="100%"
           height="100%"
           layout="responsive"
+          unoptimized
+          loader={({ src }) => src}
           blurDataURL={imageError ? '/image404.png' : image}
         />
         <S.CardTitle>{animal.name}</S.CardTitle>
@@ -129,9 +123,11 @@ const Animals: NextPage = () => {
     const fetchBackend = async () => {
       setIsLoading(true)
 
-      const models = await DataStore.query(AnimalModel)
+      const models = await DataStore.query(AnimalsModels)
 
-      setAnimals(models)
+      const animalsWithImage = await Promise.all(models.map(formatAnimal))
+
+      setAnimals(animalsWithImage)
       setIsLoading(false)
     }
 

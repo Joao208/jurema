@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next'
 import { withSSRContext } from 'aws-amplify'
 
-import { AnimalModel } from 'src/models'
+import { Animals as AnimalsModels } from 'src/models'
 import { Animal } from './animals'
 
 function generateSiteMap(animals: Animal[]) {
@@ -32,7 +32,7 @@ export async function getInitialProps(ctx: GetServerSidePropsContext) {
 
   const { DataStore } = withSSRContext(ctx)
 
-  const animals = await DataStore.query(AnimalModel)
+  const animals = await DataStore.query(AnimalsModels)
 
   const sitemap = generateSiteMap(animals)
 

@@ -1,24 +1,31 @@
 enum Personality {
   CALM
   CURIOUS
+  HECTIC
 }
 
 enum Size {
   SMALL
   BIG
+  TINY
+  MEDIUM
 }
 
 enum Sex {
   MALE
-  FAMALE
+  FEMALE
 }
 
 enum Species {
   DOG
   CAT
+  BIRD
+  EQUINE
+  BOVINE
+  WILD_ANIMAL
 }
 
-type AnimalModel @model @auth(rules: [{allow: public}]) {
+type Animals @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   species: Species!

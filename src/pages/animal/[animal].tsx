@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { withSSRContext, Storage } from 'aws-amplify'
 import Head from 'next/head'
-import { AnimalModel } from '../../models'
+import { Animals as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
 import * as S from 'src/styles/animal'
 import { InterrogationIcon } from 'public/detailsIcons/interrogation'
@@ -16,6 +16,7 @@ import { Template } from 'src/components/template'
 import { Button } from 'src/components/button'
 import { Animal } from '../animals'
 import { SickIcon } from 'public/detailsIcons/sick'
+import { formatAnimal } from 'src/utils/formatAnimal'
 
 interface AnimalInterface {
   animal: Animal
@@ -183,7 +184,7 @@ export default AnimalPage
 export async function getStaticPaths(ctx: any) {
   const { DataStore } = withSSRContext(ctx)
 
-  const models = await DataStore.query(AnimalModel)
+  const models = await DataStore.query(AnimalsModels)
 
   const paths = models.map((animal: any) => ({
     params: { animal: animal.id },
@@ -200,7 +201,7 @@ export async function getStaticProps(ctx: any) {
 
   const { DataStore } = withSSRContext(ctx)
 
-  const animal = await DataStore.query(AnimalModel, animalId)
+  const animal = await DataStore.query(AnimalsModels, animalId)
 
   if (!animal) {
     return {
@@ -211,9 +212,11 @@ export async function getStaticProps(ctx: any) {
     }
   }
 
+  const formattedAnimal = await formatAnimal(animal)
+
   return {
     props: {
-      animal: JSON.parse(JSON.stringify(animal)),
+      animal: JSON.parse(JSON.stringify(formattedAnimal)),
     },
     revalidate: 1000,
   }

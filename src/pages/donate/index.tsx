@@ -56,10 +56,8 @@ const Donate: React.FC = () => {
       return
     }
 
-    if (!isValidName || !validValue) return
-
     window.location.href = `/donate/qr/?value=${value}&name=${name}`
-  }, [value, name, isValidName, validValue])
+  }, [value, name])
 
   return (
     <Template

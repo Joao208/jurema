@@ -59,6 +59,9 @@ const Home: NextPage = () => {
             layout="fill"
             objectFit="cover"
             blurDataURL="/header.png"
+            loader={({ src, width, quality }) =>
+              `${src}?w=${width}&q=${quality || 75}`
+            }
           />
 
           <S.Title>Não compre, adote.</S.Title>

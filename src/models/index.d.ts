@@ -2,31 +2,38 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 export enum Personality {
   CALM = "CALM",
-  CURIOUS = "CURIOUS"
+  CURIOUS = "CURIOUS",
+  HECTIC = "HECTIC"
 }
 
 export enum Size {
   SMALL = "SMALL",
-  BIG = "BIG"
+  BIG = "BIG",
+  TINY = "TINY",
+  MEDIUM = "MEDIUM"
 }
 
 export enum Sex {
   MALE = "MALE",
-  FAMALE = "FAMALE"
+  FEMALE = "FEMALE"
 }
 
 export enum Species {
   DOG = "DOG",
-  CAT = "CAT"
+  CAT = "CAT",
+  BIRD = "BIRD",
+  EQUINE = "EQUINE",
+  BOVINE = "BOVINE",
+  WILD_ANIMAL = "WILD_ANIMAL"
 }
 
 
 
-type AnimalModelMetaData = {
+type AnimalsMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class AnimalModel {
+export declare class Animals {
   readonly id: string;
   readonly name: string;
   readonly species: Species | keyof typeof Species;
@@ -42,6 +49,6 @@ export declare class AnimalModel {
   readonly photoKey: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<AnimalModel, AnimalModelMetaData>);
-  static copyOf(source: AnimalModel, mutator: (draft: MutableModel<AnimalModel, AnimalModelMetaData>) => MutableModel<AnimalModel, AnimalModelMetaData> | void): AnimalModel;
+  constructor(init: ModelInit<Animals, AnimalsMetaData>);
+  static copyOf(source: Animals, mutator: (draft: MutableModel<Animals, AnimalsMetaData>) => MutableModel<Animals, AnimalsMetaData> | void): Animals;
 }
