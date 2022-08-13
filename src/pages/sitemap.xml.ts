@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next'
 import { withSSRContext } from 'aws-amplify'
 
-import { Animals as AnimalsModels } from 'src/models'
+import { AnimalsModel as AnimalsModels } from 'src/models'
 import { Animal } from './animals'
 
 function generateSiteMap(animals: Animal[]) {

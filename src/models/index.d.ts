@@ -29,11 +29,11 @@ export enum Species {
 
 
 
-type AnimalsMetaData = {
+type AnimalsModelMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Animals {
+export declare class AnimalsModel {
   readonly id: string;
   readonly name: string;
   readonly species: Species | keyof typeof Species;
@@ -49,6 +49,6 @@ export declare class Animals {
   readonly photoKey: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Animals, AnimalsMetaData>);
-  static copyOf(source: Animals, mutator: (draft: MutableModel<Animals, AnimalsMetaData>) => MutableModel<Animals, AnimalsMetaData> | void): Animals;
+  constructor(init: ModelInit<AnimalsModel, AnimalsModelMetaData>);
+  static copyOf(source: AnimalsModel, mutator: (draft: MutableModel<AnimalsModel, AnimalsModelMetaData>) => MutableModel<AnimalsModel, AnimalsModelMetaData> | void): AnimalsModel;
 }

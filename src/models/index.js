@@ -29,10 +29,10 @@ const Species = {
   "WILD_ANIMAL": "WILD_ANIMAL"
 };
 
-const { Animals } = initSchema(schema);
+const { AnimalsModel } = initSchema(schema);
 
 export {
-  Animals,
+  AnimalsModel,
   Personality,
   Size,
   Sex,

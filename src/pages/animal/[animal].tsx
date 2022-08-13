@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { withSSRContext, Storage } from 'aws-amplify'
 import Head from 'next/head'
-import { Animals as AnimalsModels } from '../../models'
+import { AnimalsModel as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
 import * as S from 'src/styles/animal'
 import { InterrogationIcon } from 'public/detailsIcons/interrogation'

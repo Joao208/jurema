@@ -1,5 +1,5 @@
 import { withSSRContext } from 'aws-amplify'
-import { Animals as AnimalsModels } from '../../../../models'
+import { AnimalsModel as AnimalsModels } from '../../../../models'
 
 import * as S from 'src/styles/animal'
 import { Button } from 'src/components/button'

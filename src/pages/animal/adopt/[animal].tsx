@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { Animals as AnimalsModels } from 'src/models'
+import { AnimalsModel as AnimalsModels } from 'src/models'
 import { withSSRContext } from 'aws-amplify'
 
 import * as S from 'src/styles/animal'
