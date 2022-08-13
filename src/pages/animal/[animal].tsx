@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { withSSRContext, Storage } from 'aws-amplify'
+import { withSSRContext } from 'aws-amplify'
 import Head from 'next/head'
 import { AnimalsModel as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
@@ -24,22 +24,14 @@ interface AnimalInterface {
 
 const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   const [alreadyAdopted, setAlreadyAdopted] = useState(false)
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState(animal?.photo || '/image404.png')
 
   useEffect(() => {
-    ;(async () => {
-      const file = await Storage.get(animal?.photoKey, {
-        level: 'public',
-      })
+    const animalInLocalStorage = localStorage.getItem(animal?.id) || ''
 
-      setImage(file)
-
-      const animalInLocalStorage = localStorage.getItem(animal?.id) || ''
-
-      if (animalInLocalStorage === 'alreadyAdopted') {
-        setAlreadyAdopted(true)
-      }
-    })()
+    if (animalInLocalStorage === 'alreadyAdopted') {
+      setAlreadyAdopted(true)
+    }
   }, [animal])
 
   const handleErrorImage = useCallback(() => {
