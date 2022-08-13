@@ -2,8 +2,8 @@ backend:
   phases:
     build:
       commands:
-        - '# Execute Amplify CLI with the helper script'
-        - amplifyPush --force
+        - AMPLIFY_DESTRUCTIVE_UPDATES=true
+        - amplifyPush --simple
 frontend:
   phases:
     preBuild:
