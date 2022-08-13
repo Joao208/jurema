@@ -2,7 +2,8 @@ import axios from 'axios'
 import { buildQueryParams } from 'src/utils/buildQueryParams'
 
 export const api = axios.create({
-  baseURL: 'https://m1b4jzz5e3.execute-api.us-east-2.amazonaws.com/staging',
+  baseURL:
+    'https://m1b4jzz5e3.execute-api.us-east-2.amazonaws.com/projetojurema',
 })
 
 interface Forms {

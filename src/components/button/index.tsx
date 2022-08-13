@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useTheme } from '@aws-amplify/ui-react'
 import { LoadingIcon } from 'public/loading'
 import * as S from './styles'
 
@@ -26,6 +27,8 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
+  const { tokens } = useTheme()
+
   if (!href)
     return (
       <S.Button
@@ -36,6 +39,7 @@ export const Button: React.FC<ButtonProps> = ({
         isLoading={isLoading}
         height={height}
         disabled={disabled}
+        tokens={tokens}
         {...props}
       >
         {isLoading ? <LoadingIcon /> : buttonText}
@@ -45,13 +49,14 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <Link href={href} passHref>
       <S.Button
-        {...props}
         mobileHeight={mobileHeight}
         mobileWidth={mobileWidth}
         width={width}
         isLoading={isLoading}
         height={height}
+        tokens={tokens}
         disabled={disabled}
+        {...props}
       >
         {isLoading ? <LoadingIcon /> : buttonText}
       </S.Button>
