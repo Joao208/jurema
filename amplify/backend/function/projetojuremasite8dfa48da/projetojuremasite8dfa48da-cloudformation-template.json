@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "projetojurema3cb96d42",
+            "projetojuremasite8dfa48da",
             {
               "Fn::Join": [
                 "",
                 [
-                  "projetojurema3cb96d42",
+                  "projetojuremasite8dfa48da",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "projetojuremaLambdaRolef449f22a",
+            "projetojuremasiteLambdaRolece16b7f6",
             {
               "Fn::Join": [
                 "",
                 [
-                  "projetojuremaLambdaRolef449f22a",
+                  "projetojuremasiteLambdaRolece16b7f6",
                   "-",
                   {
                     "Ref": "env"

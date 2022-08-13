@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3ab405379",
+  "policyUUID": "ab405379",
+  "bucketName": "projetojuremasite8b7cdb62c66c46c8a1ea5d1b99cf0e",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

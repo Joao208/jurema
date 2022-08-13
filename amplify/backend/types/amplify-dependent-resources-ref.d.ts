@@ -1,13 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
-    "api": {
-        "ProjetoJurema": {
-            "GraphQLAPIKeyOutput": "string",
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
-        }
-    },
     "auth": {
-        "ProjetoJurema": {
+        "projetojuremasite7edc297a": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -18,19 +11,26 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "s3projetojuremastorage07bc0ee8": {
+        "s3ab405379": {
             "BucketName": "string",
             "Region": "string"
         }
     },
+    "api": {
+        "ProjetoJuremaSite": {
+            "GraphQLAPIKeyOutput": "string",
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
+        }
+    },
     "function": {
-        "projetojurema98b98055": {
+        "projetojuremasitede451c9b": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "projetojurema3cb96d42": {
+        "projetojuremasite8dfa48da": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

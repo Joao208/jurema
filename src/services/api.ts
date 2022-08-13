@@ -12,7 +12,9 @@ interface Forms {
 }
 
 export const sendAdoption = async (data: Forms) => {
-  return api.get(`/projetojurema3cb96d42-staging/?${buildQueryParams(data)}`)
+  return api.get(
+    `/projetojuremasitede451c9b-staging/?${buildQueryParams(data)}`
+  )
 }
 
 interface Payment {
@@ -21,5 +23,7 @@ interface Payment {
 }
 
 export const getQR = async (data: Payment) => {
-  return api.get(`/projetojurema98b98055-staging/?${buildQueryParams(data)}`)
+  return api.get(
+    `/projetojuremasite8dfa48da-staging/?${buildQueryParams(data)}`
+  )
 }

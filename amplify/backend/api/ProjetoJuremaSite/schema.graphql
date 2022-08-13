@@ -40,4 +40,3 @@ type Animals @model @auth(rules: [{allow: public}]) {
   felv: Boolean!
   photoKey: String!
 }
- 

@@ -1,28 +1,30 @@
 {
   "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amplify9368a41038274-staging-234609-authRole",
-      "UnauthRoleArn": "arn:aws:iam::226363383544:role/amplify-amplify9368a41038274-staging-234609-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::226363383544:role/amplify-amplify9368a41038274-staging-234609-authRole",
+      "AuthRoleName": "amplify-amplify379cd1e0ba9f4-staging-33501-authRole",
+      "UnauthRoleArn": "arn:aws:iam::226363383544:role/amplify-amplify379cd1e0ba9f4-staging-33501-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::226363383544:role/amplify-amplify379cd1e0ba9f4-staging-33501-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-amplify9368a41038274-staging-234609-deployment",
-      "UnauthRoleName": "amplify-amplify9368a41038274-staging-234609-unauthRole",
-      "StackName": "amplify-amplify9368a41038274-staging-234609",
-      "StackId": "arn:aws:cloudformation:us-east-2:226363383544:stack/amplify-amplify9368a41038274-staging-234609/1d15f3b0-16ab-11ed-9e02-0a00923b9368",
-      "AmplifyAppId": "d36nkrzt9avsi0"
+      "DeploymentBucketName": "amplify-amplify379cd1e0ba9f4-staging-33501-deployment",
+      "UnauthRoleName": "amplify-amplify379cd1e0ba9f4-staging-33501-unauthRole",
+      "StackName": "amplify-amplify379cd1e0ba9f4-staging-33501",
+      "StackId": "arn:aws:cloudformation:us-east-2:226363383544:stack/amplify-amplify379cd1e0ba9f4-staging-33501/ea2e7050-1ab8-11ed-84ea-06d9630f3090",
+      "AmplifyAppId": "d3b8izolcg6ciy"
     },
     "categories": {
       "auth": {
-        "ProjetoJurema": {}
+        "projetojuremasite9452f185": {},
+        "projetojuremasite7edc297a": {},
+        "true": {}
       },
       "function": {
-        "projetojurema98b98055": {
-          "deploymentBucketName": "amplify-amplify9368a41038274-staging-234609-deployment",
-          "s3Key": "amplify-builds/projetojurema98b98055-6379554b426e4c69446f-build.zip"
+        "projetojuremasite8dfa48da": {
+          "deploymentBucketName": "amplify-amplify379cd1e0ba9f4-staging-33501-deployment",
+          "s3Key": "amplify-builds/projetojuremasite8dfa48da-45623747324a71557956-build.zip"
         },
-        "projetojurema3cb96d42": {
-          "deploymentBucketName": "amplify-amplify9368a41038274-staging-234609-deployment",
-          "s3Key": "amplify-builds/projetojurema3cb96d42-2b615252724670667045-build.zip"
+        "projetojuremasitede451c9b": {
+          "deploymentBucketName": "amplify-amplify379cd1e0ba9f4-staging-33501-deployment",
+          "s3Key": "amplify-builds/projetojuremasitede451c9b-4a6863344f4954427938-build.zip"
         }
       }
     }
