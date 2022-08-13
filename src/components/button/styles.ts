@@ -12,7 +12,7 @@ export const rotate = keyframes`
 `
 
 export const Button = styled.div<ButtonInterface>`
-  background: #9100a9;
+  background: ${({ tokens }) => tokens.colors.purple[80].value};
   border-radius: 10px;
 
   display: flex;
@@ -34,19 +34,19 @@ export const Button = styled.div<ButtonInterface>`
   align-items: center;
   text-align: center;
 
-  color: #ffffff;
+  color: ${({ tokens }) => tokens.colors.white.value};
 
   cursor: pointer;
 
   transition: background 0.2s ease;
 
   :hover {
-    background: #590067;
+    background: ${({ tokens }) => tokens.colors.purple[100].value};
   }
 
   :active {
     outline: 4px solid rgba(89, 0, 103, 0.5);
-    background: #590067;
+    background: ${({ tokens }) => tokens.colors.purple[100].value};
   }
 
   @media (max-width: 900px) {
