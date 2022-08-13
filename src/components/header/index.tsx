@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
+import { loader } from 'src/utils/loader'
 import * as S from './styles'
 
 interface HeaderProps {
@@ -41,9 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ showBorder = true }) => {
         <Link href="/" passHref>
           <S.LogoContainer>
             <Image
-              loader={({ src, width, quality }) => {
-                return `${src}?w=${width}&q=${quality || 75}`
-              }}
+              loader={loader}
               src="/logo.png"
               alt="Jurema Logo"
               width="47px"

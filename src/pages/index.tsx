@@ -7,6 +7,7 @@ import { Button } from 'src/components/button'
 import { Footer } from 'src/components/footer'
 import { DefaultHead } from 'src/components/head'
 import { Header } from 'src/components/header'
+import { loader } from 'src/utils/loader'
 import * as S from '../styles'
 
 const Home: NextPage = () => {
@@ -59,9 +60,7 @@ const Home: NextPage = () => {
             layout="fill"
             objectFit="cover"
             blurDataURL="/header.png"
-            loader={({ src, width, quality }) =>
-              `${src}?w=${width}&q=${quality || 75}`
-            }
+            loader={loader}
           />
 
           <S.Title>Não compre, adote.</S.Title>

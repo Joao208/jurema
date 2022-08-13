@@ -1,16 +1,17 @@
+import { useCallback, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { DataStore, Storage } from 'aws-amplify'
+import { DataStore } from 'aws-amplify'
 import { Animals as AnimalsModels } from 'src/models'
 import { BreedIcon } from 'public/detailsIcons/breed'
 import { GenderIcon } from 'public/detailsIcons/gender'
 import { EmptyIcon } from 'public/empty'
-import { useCallback, useEffect, useState } from 'react'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
 import { Description, FlexWrapperSuccess, SubTitle } from 'src/styles/animal'
 import * as S from 'src/styles/animals'
 import { formatAnimal } from 'src/utils/formatAnimal'
+import { loader } from 'src/utils/loader'
 
 export interface Animal {
   id: string
@@ -54,7 +55,7 @@ const AnimalComponente = ({
           height="100%"
           layout="responsive"
           unoptimized
-          loader={({ src }) => src}
+          loader={loader}
           blurDataURL={imageError ? '/image404.png' : image}
         />
         <S.CardTitle>{animal.name}</S.CardTitle>

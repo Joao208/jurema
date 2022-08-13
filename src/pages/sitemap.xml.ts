@@ -28,8 +28,7 @@ function SiteMap() {
   // getServerSideProps will do the heavy lifting
 }
 
-export async function getInitialProps(ctx: GetServerSidePropsContext) {
-
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { DataStore } = withSSRContext(ctx)
 
   const animals = await DataStore.query(AnimalsModels)

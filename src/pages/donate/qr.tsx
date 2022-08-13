@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useCallback, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Button } from 'src/components/button'
 import { Template } from 'src/components/template'
 import { getQR } from 'src/services/api'
@@ -108,11 +108,15 @@ const QR: React.FC = () => {
         </div>
         {loading && !isMobile && <S.Loading />}
         {!loading && image && !isMobile && (
-          <img
+          <Image
+            priority
+            quality="100"
             alt="QR Code"
             title="Escaneie-me"
             width="345px"
             height="345px"
+            placeholder="blur"
+            blurDataURL={image}
             src={image}
           />
         )}
