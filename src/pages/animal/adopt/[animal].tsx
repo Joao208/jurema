@@ -213,7 +213,7 @@ export async function getStaticProps(ctx: any) {
   if (!animal) {
     return {
       redirect: {
-        destination: '/animals',
+        destination: '/',
         permanent: false,
       },
     }
