@@ -6,24 +6,13 @@ export const api = axios.create({
     'https://m1b4jzz5e3.execute-api.us-east-2.amazonaws.com/projetojurema',
 })
 
-interface Forms {
-  name: string
-  animalLink: string
-  phone: string
-}
-
-export const sendAdoption = async (data: Forms) => {
+export const sendAdoption = async (data: any) => {
   return api.get(
     `/projetojuremasitede451c9b-staging/?${buildQueryParams(data)}`
   )
 }
 
-interface Payment {
-  value: number
-  name: string | undefined | string[]
-}
-
-export const getQR = async (data: Payment) => {
+export const getQR = async (data: any) => {
   return api.get(
     `/projetojuremasite8dfa48da-staging/?${buildQueryParams(data)}`
   )

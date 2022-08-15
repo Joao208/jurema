@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { HeaderContent, Scroll } from 'src/styles'
 import { Container, Title } from 'src/styles/animals'
 import { Footer } from '../footer'
@@ -6,7 +7,7 @@ import { DefaultHead } from '../head'
 import { Navigation, Path } from '../navigation'
 
 interface TemplateProps {
-  children: any
+  children: ReactNode
   paths?: Path[]
   showNavigation?: boolean
   title?: string

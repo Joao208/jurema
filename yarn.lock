@@ -170,7 +170,7 @@
   dependencies:
     "@aws-amplify/ui-components" "1.7.2"
 
-"@aws-amplify/ui-react@^3.4.0":
+"@aws-amplify/ui-react@3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-3.4.0.tgz#387c0e125c888d83abb7ac829105d14710b499fc"
   integrity sha512-X5SR5iHHsCiQJQb9h0CSziT396C5/L+FsH2wwKqNHLhDH4bNVNUJDWNgFI0SXwjmmT6w0E0pOB0JFgoZxYDr2g==

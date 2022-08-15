@@ -33,7 +33,7 @@ const AnimalComponente = ({
   index,
   animal,
 }: {
-  index: any
+  index: number
   animal: Animal
 }) => {
   const [image, setImage] = useState(animal?.photo || '/image404.png')
@@ -117,18 +117,24 @@ const EmptyAnimals: React.FC = () => {
 }
 
 const Animals: NextPage = () => {
-  const [animals, setAnimals] = useState<Animal[]>([])
+  const [animals, setAnimals] = useState<
+    ({
+      [key: string]: string
+    } | void)[]
+  >([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchBackend = async () => {
       setIsLoading(true)
 
-      const models = await DataStore.query(AnimalsModels)
+      const models = (await DataStore.query(AnimalsModels)) as unknown as {
+        [key: string]: string
+      }[]
 
       const animalsWithImage = await Promise.all(models.map(formatAnimal))
 
-      setAnimals(animalsWithImage)
+      if (animalsWithImage.length) setAnimals(animalsWithImage)
       setIsLoading(false)
     }
 
@@ -144,6 +150,7 @@ const Animals: NextPage = () => {
         {isLoading && <Loading />}
         {!isLoading &&
           (animals.length ? (
+            // @ts-ignore
             animals.map((animal: Animal, index) => (
               <AnimalComponente
                 key={animal?.id}

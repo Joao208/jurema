@@ -6,7 +6,7 @@ import * as S from './styles'
 interface ButtonProps {
   href?: string
   buttonText: string
-  onClick?: () => any
+  onClick?: () => unknown
   width?: string
   height?: string
   mobileHeight?: string
