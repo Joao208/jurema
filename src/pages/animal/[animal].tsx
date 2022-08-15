@@ -1,5 +1,6 @@
+import { GetStaticProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
-import { withSSRContext } from 'aws-amplify'
+import { DataStore } from 'aws-amplify'
 import Head from 'next/head'
 import { AnimalsModel as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
@@ -32,6 +33,8 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
     if (animalInLocalStorage === 'alreadyAdopted') {
       setAlreadyAdopted(true)
     }
+
+    setImage(animal?.photo || '/image404.png')
   }, [animal])
 
   const handleErrorImage = useCallback(() => {
@@ -47,6 +50,8 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
     return 'Saudável'
   }
+
+  console.log({ image })
 
   return (
     <>
@@ -173,12 +178,10 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default AnimalPage
 
-export async function getStaticPaths(ctx: any) {
-  const { DataStore } = withSSRContext(ctx)
-
+export async function getStaticPaths() {
   const models = await DataStore.query(AnimalsModels)
 
-  const paths = models.map((animal: any) => ({
+  const paths = models.map((animal: Animal) => ({
     params: { animal: animal.id },
   }))
 
@@ -188,26 +191,20 @@ export async function getStaticPaths(ctx: any) {
   }
 }
 
-export async function getStaticProps(ctx: any) {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const animalId = ctx.params?.animal
 
-  const { DataStore } = withSSRContext(ctx)
+  const animal = await DataStore.query(AnimalsModels, animalId as string)
 
-  const animal = await DataStore.query(AnimalsModels, animalId)
+  const formattedAnimal = await formatAnimal(
+    JSON.parse(JSON.stringify(animal || {}))
+  )
 
-  if (!animal)
-    return {
-      props: {
-        animal: {},
-      },
-      revalidate: 1000,
-    }
-
-  const formattedAnimal = await formatAnimal(animal)
+  console.log(formattedAnimal)
 
   return {
     props: {
-      animal: JSON.parse(JSON.stringify(formattedAnimal)),
+      animal: formattedAnimal,
     },
     revalidate: 1000,
   }

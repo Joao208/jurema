@@ -1,4 +1,5 @@
-import { withSSRContext } from 'aws-amplify'
+import { GetStaticProps } from 'next'
+import { DataStore } from 'aws-amplify'
 import { AnimalsModel as AnimalsModels } from '../../../../models'
 
 import * as S from 'src/styles/animal'
@@ -46,12 +47,10 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default Adopt
 
-export async function getStaticPaths(ctx: any) {
-  const { DataStore } = withSSRContext(ctx)
-
+export async function getStaticPaths() {
   const models = await DataStore.query(AnimalsModels)
 
-  const paths = models.map((animal: any) => ({
+  const paths = models.map((animal: Animal) => ({
     params: { animal: animal.id },
   }))
 
@@ -61,26 +60,18 @@ export async function getStaticPaths(ctx: any) {
   }
 }
 
-export async function getStaticProps(ctx: any) {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const animalId = ctx.params?.animal
 
-  const { DataStore } = withSSRContext(ctx)
+  const animal = await DataStore.query(AnimalsModels, animalId as string)
 
-  const animal = await DataStore.query(AnimalsModels, animalId)
-
-  if (!animal)
-    return {
-      props: {
-        animal: {},
-      },
-      revalidate: 1000,
-    }
-
-  const formattedAnimal = await formatAnimal(animal)
-
+  const formattedAnimal = await formatAnimal(
+    JSON.parse(JSON.stringify(animal || {}))
+  )
+  
   return {
     props: {
-      animal: JSON.parse(JSON.stringify(formattedAnimal)),
+      animal: formattedAnimal,
     },
     revalidate: 1000,
   }

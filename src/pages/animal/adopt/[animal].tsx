@@ -1,7 +1,8 @@
+import { GetStaticProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { AnimalsModel as AnimalsModels } from 'src/models'
-import { withSSRContext } from 'aws-amplify'
+import { DataStore } from 'aws-amplify'
 
 import * as S from 'src/styles/animal'
 import { Input } from 'src/components/input'
@@ -188,12 +189,10 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default Adopt
 
-export async function getStaticPaths(ctx: any) {
-  const { DataStore } = withSSRContext(ctx)
-
+export async function getStaticPaths() {
   const models = await DataStore.query(AnimalsModels)
 
-  const paths = models.map((animal: any) => ({
+  const paths = models.map((animal: Animal) => ({
     params: { animal: animal.id },
   }))
 
@@ -203,26 +202,18 @@ export async function getStaticPaths(ctx: any) {
   }
 }
 
-export async function getStaticProps(ctx: any) {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const animalId = ctx.params?.animal
 
-  const { DataStore } = withSSRContext(ctx)
+  const animal = await DataStore.query(AnimalsModels, animalId as string)
 
-  const animal = await DataStore.query(AnimalsModels, animalId)
-
-  if (!animal)
-    return {
-      props: {
-        animal: {},
-      },
-      revalidate: 1000,
-    }
-
-  const formattedAnimal = await formatAnimal(animal)
+  const formattedAnimal = await formatAnimal(
+    JSON.parse(JSON.stringify(animal || {}))
+  )
 
   return {
     props: {
-      animal: JSON.parse(JSON.stringify(formattedAnimal)),
+      animal: formattedAnimal,
     },
     revalidate: 1000,
   }

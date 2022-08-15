@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import * as S from './styles'
 
 interface InputProps {
@@ -6,11 +6,11 @@ interface InputProps {
   placeholder?: string
   value: string
   mask?: string
-  setValue: (param: string) => any
+  setValue: Dispatch<SetStateAction<string>> | ((value: string) => void)
   error?: string | false
   type?: string
   id?: string
-  onEnter?: (value: string) => any
+  onEnter?: (value: string) => unknown
 }
 
 export const Input: React.FC<InputProps> = ({
