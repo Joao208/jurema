@@ -1,4 +1,4 @@
-import { Amplify } from 'aws-amplify'
+import { Amplify, DataStore } from 'aws-amplify'
 import { createGlobalStyle } from 'styled-components'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'react-toastify'
@@ -30,6 +30,10 @@ const GlobalStyle = createGlobalStyle`
 
 function MyApp({ Component, pageProps }: AppProps) {
   Amplify.configure({ ...awsExports, ssr: true })
+
+  DataStore.start().then(() => {
+    console.log('Datastore initialized')
+  })
 
   console.log(
     'Powered by João Augusto (https://linkedin.com/in/joao208) and Mateus Coutinho (https://linkedin.com/in/coutinhomm)'
