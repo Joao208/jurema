@@ -5,7 +5,6 @@ const nextConfig = {
     domains: [
       'projeto-jurema-storage-07bc0ee8234609-staging.s3.us-east-2.amazonaws.com',
     ],
-    loader: 'custom',
   },
 }
 
