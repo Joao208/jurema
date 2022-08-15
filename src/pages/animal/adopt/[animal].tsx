@@ -210,14 +210,13 @@ export async function getStaticProps(ctx: any) {
 
   const animal = await DataStore.query(AnimalsModels, animalId)
 
-  if (!animal) {
+  if (!animal)
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+      props: {
+        animal: {},
       },
+      revalidate: 1000,
     }
-  }
 
   const formattedAnimal = await formatAnimal(animal)
 
