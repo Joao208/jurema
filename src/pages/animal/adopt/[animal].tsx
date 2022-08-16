@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { AnimalsModel as AnimalsModels } from 'src/models'
-import { DataStore } from 'aws-amplify'
+import { DataStore, withSSRContext } from 'aws-amplify'
 
 import * as S from 'src/styles/animal'
 import { Input } from 'src/components/input'
@@ -12,6 +12,7 @@ import { CheckBox } from 'src/components/checkbox'
 import { sendAdoption } from 'src/services/api'
 import { Animal } from 'src/pages/animals'
 import { formatAnimal } from 'src/utils/formatAnimal'
+import { parseAnimal } from 'src/utils/parseAnimal'
 
 interface AnimalInterface {
   animal: Animal
@@ -203,18 +204,19 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  // @ts-ignore
+  const SSR = withSSRContext(ctx.req)
+
   const animalId = ctx.params?.animal
 
-  const animal = await DataStore.query(AnimalsModels, animalId as string)
+  const animal = await SSR.DataStore.query(AnimalsModels, animalId as string)
 
-  const formattedAnimal = await formatAnimal(
-    JSON.parse(JSON.stringify(animal || {}))
-  )
+  const formattedAnimal = await formatAnimal(parseAnimal(animal))
 
   return {
     props: {
       animal: formattedAnimal,
     },
-    revalidate: 1000,
+    revalidate: 300,
   }
 }

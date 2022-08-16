@@ -1,6 +1,7 @@
-import { GetServerSidePropsContext } from 'next'
-import { withSSRContext } from 'aws-amplify'
+import { GetServerSideProps } from 'next'
+import * as Amplify from 'aws-amplify'
 
+import awsExports from '../aws-exports'
 import { AnimalsModel as AnimalsModels } from 'src/models'
 import { Animal } from './animals'
 
@@ -28,8 +29,11 @@ function SiteMap() {
   // getServerSideProps will do the heavy lifting
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const { DataStore } = withSSRContext(ctx)
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  Amplify.default.configure({ ...awsExports, ssr: true })
+
+  // @ts-ignore
+  const { DataStore } = Amplify.withSSRContext(ctx.req)
 
   const animals = await DataStore.query(AnimalsModels)
 
