@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
-import { DataStore } from 'aws-amplify'
+import { DataStore, withSSRContext } from 'aws-amplify'
 import Head from 'next/head'
 import { AnimalsModel as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
@@ -18,6 +18,7 @@ import { Button } from 'src/components/button'
 import { Animal } from '../animals'
 import { SickIcon } from 'public/detailsIcons/sick'
 import { formatAnimal } from 'src/utils/formatAnimal'
+import { parseAnimal } from 'src/utils/parseAnimal'
 
 interface AnimalInterface {
   animal: Animal
@@ -50,8 +51,6 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
     return 'Saudável'
   }
-
-  console.log({ image })
 
   return (
     <>
@@ -192,20 +191,19 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  // @ts-ignore
+  const SSR = withSSRContext(ctx.req)
+
   const animalId = ctx.params?.animal
 
-  const animal = await DataStore.query(AnimalsModels, animalId as string)
+  const animal = await SSR.DataStore.query(AnimalsModels, animalId as string)
 
-  const formattedAnimal = await formatAnimal(
-    JSON.parse(JSON.stringify(animal || {}))
-  )
-
-  console.log(formattedAnimal)
+  const formattedAnimal = await formatAnimal(parseAnimal(animal))
 
   return {
     props: {
       animal: formattedAnimal,
     },
-    revalidate: 1000,
+    revalidate: 300,
   }
 }
