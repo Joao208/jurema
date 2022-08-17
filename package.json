@@ -9,9 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "3.4.0",
-    "@aws-sdk/util-uri-escape": "3.55.0",
-    "aws-amplify": "4.3.30",
+    "@aws-amplify/datastore": "3.12.6",
+    "aws-amplify": "4.3.31",
     "axios": "0.27.2",
     "next": "12.1.5",
     "react": "18.0.0",
