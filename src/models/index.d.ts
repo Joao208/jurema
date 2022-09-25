@@ -1,4 +1,4 @@
-import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
+import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 
 export enum Personality {
   CALM = "CALM",
@@ -26,8 +26,6 @@ export enum Species {
   BOVINE = "BOVINE",
   WILD_ANIMAL = "WILD_ANIMAL"
 }
-
-
 
 type AnimalsModelMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';

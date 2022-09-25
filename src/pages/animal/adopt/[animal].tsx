@@ -1,8 +1,8 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { AnimalsModel as AnimalsModels } from 'src/models'
-import { DataStore, withSSRContext } from 'aws-amplify'
+import { withSSRContext } from 'aws-amplify'
 
 import * as S from 'src/styles/animal'
 import { Input } from 'src/components/input'
@@ -152,7 +152,7 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
       </S.Description>
       <Input
         id="name-input"
-        error={!isValidName && 'Nome é obrigatório'}
+        error={!isValidName ? 'Nome é obrigatório' : ''}
         mask=""
         placeholder="João Silva"
         onEnter={handleNext}
@@ -173,8 +173,9 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
         onChange={handleCheck}
         checked={checked}
         error={
-          errorCheckbox &&
-          'Você precisa aceitar receber mensagens pelo WhatsApp'
+          errorCheckbox
+            ? 'Você precisa aceitar receber mensagens pelo WhatsApp'
+            : ''
         }
       />
       <Button
@@ -190,33 +191,27 @@ const Adopt: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default Adopt
 
-export async function getStaticPaths() {
-  const models = await DataStore.query(AnimalsModels)
-
-  const paths = models.map((animal: Animal) => ({
-    params: { animal: animal.id },
-  }))
-
-  return {
-    paths,
-    fallback: true,
-  }
-}
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  // @ts-ignore
-  const SSR = withSSRContext(ctx.req)
-
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const animalId = ctx.params?.animal
 
-  const animal = await SSR.DataStore.query(AnimalsModels, animalId as string)
+  const { DataStore } = withSSRContext(ctx)
 
-  const formattedAnimal = await formatAnimal(parseAnimal(animal))
+  const animal = await DataStore.query(AnimalsModels, animalId as string)
+
+  if (!animal) {
+    return {
+      notFound: true,
+    }
+  }
+
+  const formattedAnimal = await formatAnimal({
+    animal: parseAnimal(animal),
+    foundPhoto: false,
+  })
 
   return {
     props: {
       animal: formattedAnimal,
     },
-    revalidate: 300,
   }
 }

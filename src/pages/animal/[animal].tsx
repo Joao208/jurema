@@ -1,6 +1,6 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
-import { DataStore, withSSRContext } from 'aws-amplify'
+import { Storage, withSSRContext } from 'aws-amplify'
 import Head from 'next/head'
 import { AnimalsModel as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
@@ -28,6 +28,16 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   const [alreadyAdopted, setAlreadyAdopted] = useState(false)
   const [image, setImage] = useState(animal?.photo || '/image404.png')
 
+  const getImage = useCallback(async () => {
+    const { photoKey } = animal
+
+    const imageFound = await Storage.get(photoKey, {
+      level: 'public',
+    })
+
+    setImage(imageFound)
+  }, [animal])
+
   useEffect(() => {
     const animalInLocalStorage = localStorage.getItem(animal?.id) || ''
 
@@ -35,8 +45,10 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
       setAlreadyAdopted(true)
     }
 
+    getImage()
+
     setImage(animal?.photo || '/image404.png')
-  }, [animal])
+  }, [animal, getImage])
 
   const handleErrorImage = useCallback(() => {
     setImage('/image404.png')
@@ -177,33 +189,27 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default AnimalPage
 
-export async function getStaticPaths() {
-  const models = await DataStore.query(AnimalsModels)
-
-  const paths = models.map((animal: Animal) => ({
-    params: { animal: animal.id },
-  }))
-
-  return {
-    paths,
-    fallback: true,
-  }
-}
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  // @ts-ignore
-  const SSR = withSSRContext(ctx.req)
-
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const animalId = ctx.params?.animal
 
-  const animal = await SSR.DataStore.query(AnimalsModels, animalId as string)
+  const { DataStore } = withSSRContext(ctx)
 
-  const formattedAnimal = await formatAnimal(parseAnimal(animal))
+  const animal = await DataStore.query(AnimalsModels, animalId as string)
+
+  if (!animal) {
+    return {
+      notFound: true,
+    }
+  }
+
+  const formattedAnimal = await formatAnimal({
+    animal: parseAnimal(animal),
+    foundPhoto: false,
+  })
 
   return {
     props: {
       animal: formattedAnimal,
     },
-    revalidate: 300,
   }
 }

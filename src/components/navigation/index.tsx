@@ -44,7 +44,7 @@ const DesktopNavigation: React.FC<NavigationProps> = ({ paths }) => {
         </div>
       </Link>
       {paths.map(({ path, label }, index) => (
-        <>
+        <span key={path + label + index}>
           <DesktopArrow />
           {index === paths.length - 1 ? (
             <p className="label">{label}</p>
@@ -53,7 +53,7 @@ const DesktopNavigation: React.FC<NavigationProps> = ({ paths }) => {
               <p className="redirect">{label}</p>
             </Link>
           )}
-        </>
+        </span>
       ))}
     </S.ContainerDesktop>
   )
