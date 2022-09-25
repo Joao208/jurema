@@ -1,6 +1,6 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
-import { DataStore, withSSRContext } from 'aws-amplify'
+import { withSSRContext } from 'aws-amplify'
 import Head from 'next/head'
 import { AnimalsModel as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
@@ -177,26 +177,28 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default AnimalPage
 
-export async function getStaticPaths() {
-  const models = await DataStore.query(AnimalsModels)
+// export async function getStaticPaths(ctx: any) {
+//   const { DataStore } = withSSRContext(ctx)
 
-  const paths = models.map((animal: Animal) => ({
-    params: { animal: animal.id },
-  }))
+//   const models = await DataStore.query(AnimalsModels)
 
-  return {
-    paths,
-    fallback: true,
-  }
-}
+//   const paths = models.map((animal: any) => ({
+//     params: { animal: animal.id },
+//   }))
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  // @ts-ignore
-  const SSR = withSSRContext(ctx.req)
+//   return {
+//     paths,
+//     fallback: true,
+//   }
+// }
 
-  const animalId = ctx.params?.animal
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const animalId = ctx.params?.animalId
+  console.log(animalId)
 
-  const animal = await SSR.DataStore.query(AnimalsModels, animalId as string)
+  const { DataStore } = withSSRContext(ctx)
+
+  const animal = await DataStore.query(AnimalsModels, animalId as string)
 
   const formattedAnimal = await formatAnimal(parseAnimal(animal))
 
