@@ -1,8 +1,12 @@
 import { Storage } from 'aws-amplify'
 
-export const formatAnimal = async <T extends { [key: string]: string }>(
+export const formatAnimal = async <T extends { [key: string]: string }>({
+  animal,
+  foundPhoto = true,
+}: {
   animal: T
-): Promise<T | void> => {
+  foundPhoto?: boolean
+}): Promise<T | void> => {
   if (!animal) return animal
 
   const personality = {
@@ -31,6 +35,15 @@ export const formatAnimal = async <T extends { [key: string]: string }>(
     BOVINE: 'Bovino',
     WILD_ANIMAL: 'Animal Silvestre',
   } as { [key: string]: string }
+
+  if (!foundPhoto)
+    return {
+      ...animal,
+      personality: personality[animal.personality],
+      size: size[animal.size],
+      sex: sex[animal.sex],
+      species: species[animal.species],
+    }
 
   const file = await Storage.get(animal.photoKey, {
     level: 'public',

@@ -132,7 +132,9 @@ const Animals: NextPage = () => {
         [key: string]: string
       }[]
 
-      const animalsWithImage = await Promise.all(models.map(formatAnimal))
+      const animalsWithImage = await Promise.all(
+        models.map((animal) => formatAnimal({ animal }))
+      )
 
       if (animalsWithImage.length) setAnimals(animalsWithImage)
       setIsLoading(false)
