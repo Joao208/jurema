@@ -17,7 +17,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
-        "ProjetoJuremaSite": {
+        "projetojuremasite": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
