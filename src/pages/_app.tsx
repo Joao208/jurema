@@ -28,9 +28,9 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-function MyApp({ Component, pageProps }: AppProps) {
-  Amplify.configure({ ...awsExports, ssr: true })
+Amplify.configure({ ...awsExports, ssr: true })
 
+function MyApp({ Component, pageProps }: AppProps) {
   console.log(
     'Powered by João Augusto (https://linkedin.com/in/joao208) and Mateus Coutinho (https://linkedin.com/in/coutinhomm)'
   )

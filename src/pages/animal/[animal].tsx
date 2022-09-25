@@ -1,5 +1,6 @@
+import { GetServerSideProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
-import { withSSRContext } from 'aws-amplify'
+import { Storage, withSSRContext } from 'aws-amplify'
 import Head from 'next/head'
 import { AnimalsModel as AnimalsModels } from '../../models'
 import { Detail } from 'src/styles/animals'
@@ -17,6 +18,7 @@ import { Button } from 'src/components/button'
 import { Animal } from '../animals'
 import { SickIcon } from 'public/detailsIcons/sick'
 import { formatAnimal } from 'src/utils/formatAnimal'
+import { parseAnimal } from 'src/utils/parseAnimal'
 
 interface AnimalInterface {
   animal: Animal
@@ -26,13 +28,27 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
   const [alreadyAdopted, setAlreadyAdopted] = useState(false)
   const [image, setImage] = useState(animal?.photo || '/image404.png')
 
+  const getImage = useCallback(async () => {
+    const { photoKey } = animal
+
+    const imageFound = await Storage.get(photoKey, {
+      level: 'public',
+    })
+
+    setImage(imageFound)
+  }, [animal])
+
   useEffect(() => {
     const animalInLocalStorage = localStorage.getItem(animal?.id) || ''
 
     if (animalInLocalStorage === 'alreadyAdopted') {
       setAlreadyAdopted(true)
     }
-  }, [animal])
+
+    getImage()
+
+    setImage(animal?.photo || '/image404.png')
+  }, [animal, getImage])
 
   const handleErrorImage = useCallback(() => {
     setImage('/image404.png')
@@ -173,43 +189,27 @@ const AnimalPage: React.FC<AnimalInterface> = ({ animal }) => {
 
 export default AnimalPage
 
-export async function getStaticPaths(ctx: any) {
-  const { DataStore } = withSSRContext(ctx)
-
-  const models = await DataStore.query(AnimalsModels)
-
-  const paths = models.map((animal: any) => ({
-    params: { animal: animal.id },
-  }))
-
-  return {
-    paths,
-    fallback: true,
-  }
-}
-
-export async function getStaticProps(ctx: any) {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const animalId = ctx.params?.animal
 
   const { DataStore } = withSSRContext(ctx)
 
-  const animal = await DataStore.query(AnimalsModels, animalId)
+  const animal = await DataStore.query(AnimalsModels, animalId as string)
 
   if (!animal) {
     return {
-      redirect: {
-        destination: '/animals',
-        permanent: false,
-      },
+      notFound: true,
     }
   }
 
-  const formattedAnimal = await formatAnimal(animal)
+  const formattedAnimal = await formatAnimal({
+    animal: parseAnimal(animal),
+    foundPhoto: false,
+  })
 
   return {
     props: {
-      animal: JSON.parse(JSON.stringify(formattedAnimal)),
+      animal: formattedAnimal,
     },
-    revalidate: 1000,
   }
 }

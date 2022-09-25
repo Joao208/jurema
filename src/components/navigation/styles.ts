@@ -45,9 +45,18 @@ export const ContainerDesktop = styled.div`
     cursor: pointer;
     height: 20px;
   }
+
+  span {
+    display: flex;
+    gap: 10px;
+  }
 `
 
 export const ContainerMobile = styled.div`
+  @media (min-width: 900px) {
+    display: none;
+  }
+
   display: flex;
   position: relative;
   align-items: center;
